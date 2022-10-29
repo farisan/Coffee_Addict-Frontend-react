@@ -1,0 +1,289 @@
+*{
+    font-family: 'Rubik', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    
+}
+
+.container {
+    display: flex;
+}
+
+
+.right-heading {
+    flex: 1;
+}
+
+
+
+
+
+
+.icon-coffee {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin: 55px 55px 0px 56px;
+}
+
+.icon-coffee img {
+    display: flex;
+    position: absolute;
+    margin-right: 120px;
+}
+
+.icon-coffee p {
+    position: absolute;
+    padding-left: 10px;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    left: 225px;
+    color: #0B132A;
+}
+
+.icon-coffee span {
+    margin-left: 220px;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 41px;
+    color: #6A4029;
+    padding-left: 200px;
+}
+
+
+
+.register {             /* side right > induk register */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 50px 50px 150px 56px;
+}
+
+
+.forgot-text {
+    margin-top: 80px;
+}
+
+.text_one {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 78px;
+    text-align: center;
+    color: #000000;
+}
+.text_two {
+    
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    color: #000000;
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+
+
+
+
+.register .input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px 40px 0 40px;
+}
+
+
+.input > input {
+    margin-top: 6px;
+    font-size: 15px;
+    border-radius: 20px;
+    height: 55px;
+    /* padding: 0 20px;    value 1 = atas bawah || value 2 = kanan kiri */
+    padding-left: 20px;
+    background-color: rgb(243, 243, 243);
+    border: none;
+}
+
+.input>input:hover {
+    background-color: rgb(212, 212, 212);
+    opacity: 85%;
+    border: none;
+}
+
+.input>input::placeholder {
+    color: grey;
+}
+.input>input:focus{
+    outline: none;
+}
+
+.register > .button {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 55px 40px 0px 40px;
+}
+
+.button > button {
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    height: 55px;
+    font-family: 'Poppins';
+    font-style: normal;
+    line-height: 38px;
+    text-align: center;
+    color: #6A4029;
+    background: #FFBA33;
+    border: none;
+    box-shadow: 0px 6px 20px rgb(255, 195, 74);
+}
+
+.button>button:hover {
+    background-color: #fac55b
+}
+
+
+
+
+
+
+.send-text {
+    font-family: 'Poppins';
+}
+
+.send-text .send_one{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    color: #000000;
+    margin-top: 70px;
+}
+
+.send-text .send_two{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    color: #000000;
+    margin-top: 10px; 
+}
+
+
+
+
+
+
+
+
+.register > .button-login {
+    width: 100%;
+    margin: 55px 40px 80px 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: #6A4029;
+    border: none;
+    box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.63);
+    height: 55px;
+}
+
+.button-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+
+.button-login:hover {
+    background-color: #885134;
+}
+
+.forget-password {
+    display: flex;
+    width: 100%;
+    margin: 20px 40px 0px 40px;
+    padding-left: 5px;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 24px;
+    text-decoration-line: underline;
+    color: #6A4029;
+}
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+    .left-heading {
+        display: none;
+    }
+  }
+
+
+@media only screen and (max-width: 428px) {
+    .left-heading {
+        display: none;
+    }
+
+    .register {
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+
+    .icon-coffee {
+        margin-left: 0px;
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 35px;
+        line-height: 41px;
+        color: #6A4029;
+        left: 5px;
+    }
+
+    .icon-coffee p {
+        left: 135px;
+    }
+    
+
+    .right-heading {
+        width: 100%;
+    }
+
+    .send-text .send_one{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        color: #000000;
+        margin-top: 70px;
+        padding: 0 40px;
+    }
+}

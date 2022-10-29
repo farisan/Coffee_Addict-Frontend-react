@@ -1,0 +1,247 @@
+.content_left {
+    width: 300px;
+    height: 300px;
+    /* product drop shadow */
+    object-fit: cover;
+    border-radius: 50%;
+    filter: drop-shadow(0px 40px 40px rgba(0, 0, 0, 0.07));
+}
+
+.title_product {
+    text-decoration: none;
+    color: #6A4029;
+    font-weight: 700;
+}
+
+/* delivery bar time */
+.delivery_time_bar {
+    margin-top: 100px;
+    width: 90%;
+    height: auto;
+    filter: drop-shadow(0px 6px 20px rgba(0, 0, 0, 0.35));
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.now {
+    font-weight: 400;
+
+    font-size: 20px;
+    line-height: 30px;
+    margin-right: 10%;
+}
+
+.btn_delivery_time {
+    margin-right: 3%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    background: #6A4029;
+    border-radius: 10px;
+    background: #F4F4F8;
+    height: auto;
+    color: #9F9F9F;
+    padding: 6px 10px;
+    transition: all 0.4s;
+    border: none;
+}
+
+.selected {
+    font-weight: 700;
+    background: #6A4029;
+    color: #FFFFFF;
+}
+
+.set_time {
+    background: #F4F4F8;
+    border: 1px solid rgba(186, 186, 186, 0.35);
+    border-radius: 10px;
+    width: 70%;
+    height: 47px;
+    padding-left: 25px;
+}
+
+.btn_delivery_time:hover {
+    color: #FFFFFF;
+    background: #6A4029;
+    
+}
+
+/* title */
+.content_right {
+    padding-top: 100px;
+}
+
+.title {
+    font-weight: 900;
+    font-size: 65px;
+    line-height: 98px;
+    color: #000000;
+    margin-bottom: 50px;
+}
+
+.info span {
+    font-weight: bold;
+}
+
+.info {
+    margin-bottom: 60px;
+}
+
+.qty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 63px;
+    background: #FFFFFF;
+    border: 1px solid #9F9F9F;
+    border-radius: 10px;
+}
+
+.qty button {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #9F9F9F;
+    border: none;
+    background-color: transparent;
+    margin: 0 auto;
+    padding: 12px;
+}
+
+.qty input {
+    border: 1px solid #9F9F9F;
+    width: 75px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 22px;
+}
+
+.qty span {
+    margin: 0 auto;
+    padding: 14px;
+}
+
+.content_right {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 138.84%;
+    letter-spacing: 0.03em;
+    color: #6A4029;
+}
+
+.price {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 52px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.cart,
+.staff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    height: 85px;
+    border-radius: 20px;
+    background: #6A4029;
+    color: #FFFFFF;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.staff {
+    margin-top: -40px;
+    background: #FFBA33;
+    border-radius: 20px;
+    color: #6A4029;
+}
+
+/* size and checkout */
+.choose_checkout {
+    margin-top: 67px;
+    padding-left: 50px;
+    width: 100%;
+    height: 75%;
+    position: relative;
+    bottom: -70px;
+}
+
+/* size */
+.size {
+    height: 50%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    text-align: center;
+    color: #000000;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+    border-radius: 20px;
+    padding: 12px;
+}
+
+.size h4 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    text-align: center;
+    color: #000000;
+    padding: 10px 0;
+}
+
+.size button {
+    width: 70px;
+    height: 70px;
+    margin: 0 3%;
+    background: #FFBA33;
+    font-weight: 700;
+    border: none;
+}
+
+/* checkout */
+.checkout {
+    width: 65%;
+    height: 50%;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.checkout img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.button_checkout {
+    margin-left: 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #FFBA33;
+    border: none;
+}
+
+.button_checkout i {
+    font-size: 16px;
+}

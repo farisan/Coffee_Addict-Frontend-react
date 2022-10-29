@@ -1,0 +1,419 @@
+*{
+    font-family: 'Rubik', sans-serif;
+}
+
+
+
+/* CSS Navbar */
+.left-nav span {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #0B132A;
+}
+
+.center-nav a{
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4F5665;
+}
+
+.center-nav a:hover  {
+    transform: scale(1.5);
+    color: #9e684b;
+}
+
+
+.right-nav a {
+    margin: auto 25px;
+}
+
+
+.login-nav {
+    text-decoration: none;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #0B132A;
+}
+
+
+.right-nav .sign-up-nav {
+    text-decoration: none;
+    background: #FFBA33;
+    border-radius: 50px;
+    width: 150px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.sign-up-nav span {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #6A4029;
+    border-radius: 50px;
+    width: 100%;
+}
+
+.sign-up-nav:hover {
+    background-color: #ffc95e;
+}
+
+
+
+
+
+
+
+
+
+/* Background section 1 */
+.full-content {
+    background: url("../asset/home_bg.png");
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.top-content {
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+.description-content-one {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    color: #FFFFFF;
+}
+
+.description-content-two {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height:30px;
+    color: #FFFFFF;
+    margin-top: 30px;
+}
+
+ .get-started {
+    text-decoration: none;
+    background: #FFBA33;
+    border-radius: 50px;
+    width: 250px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.get-started span {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 25px;
+    color: #6A4029;
+    border-radius: 50px;
+    width: 100%;
+}
+
+
+
+.content-bottom {
+    position: absolute;
+    bottom: -50px;
+    height: 100px;
+    margin-bottom: 10px;
+    width: 85%;
+    background: #0D1025;
+    box-shadow: 0px 15px 20px rgb(119, 119, 119);
+}
+
+
+
+.store {
+    border-left: 2px solid #EEEFF2;
+    border-right: 2px solid #EEEFF2;
+    padding-left: 90px;
+    padding-right: 90px;
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
+}
+
+.description-box {
+    margin-left: 15px;
+}
+
+.desc-one {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: #0B132A;
+}
+
+.desc-two {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 30px;
+    color: #4F5665;
+}
+
+
+
+
+
+
+
+
+
+
+/* main teamwork */
+.teamwork img {
+    width: 100%;
+    height: 100%;
+    padding: 20px ;
+    margin-top: 50px;
+}
+
+.desc-team {
+    /* width: 100%;
+    height: 100%; */
+    padding-top: 100px;
+}
+
+.title-desc-one {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 50px;
+    color: #0B132A;
+    text-align: center;
+}
+
+.title-desc-two {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    color: #4F5665;
+}
+
+.desc-teamwork p {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 30px;
+    color: #4F5665;
+}
+
+.desc-teamwork img{
+    margin-right: 5px;
+}
+
+
+.partner__img{
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /* width: 50%;
+    height: 50%; */
+}
+
+.partner__img img {
+    margin: 0 5px;
+}
+
+
+
+/* favorite */
+.favorite h2 {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 50px;
+    text-align: center;
+    color: #0B132A;
+}
+
+.favorite p {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+    color: #4F5665;
+}
+
+
+
+.visit-store {
+    margin-top: 445px;
+}
+
+
+
+
+
+
+.products {
+    width: 300px;
+    height: 270px;
+    border-radius: 20px;
+    margin-top: 65px;
+    margin-left: 80px;
+}
+
+/* .product-img {
+    
+} */
+
+.product-posisi {
+    background: #FFFFFF;
+    border: 2px solid #DDDDDD;
+    border-radius: 10px;
+    bottom: -360px;
+    padding-top: 100px;
+    width: 100%;
+    height: 567px;
+    z-index: -1;
+  }
+
+.product-posisi ul{
+    height: 150px;
+}
+.product-posisi ul li {
+    list-style: none;
+    margin: 10px 0px;
+}
+.product-posisi ul li img {
+    margin-right: 5px;
+}
+
+.product-posisi h3 {
+    margin-top: 130px;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    color: #0B132A;
+    margin-bottom: 30px;
+}
+
+.product-posisi a {
+    border: 2px solid #FFBA33;
+    border-radius: 50px;
+    padding: 10px 50px;
+    text-decoration: none;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #6A4029;
+  }
+
+
+.fav {
+    padding-bottom: 500px;
+}
+
+
+
+
+
+
+/* testimoni */
+
+.card_customer {
+    padding: 20px;
+    height: auto;
+    width: 30%;;
+    background:white;
+    border: 2px solid #DDDDDD;
+    border-radius: 10px;
+}
+
+
+.controller {
+    margin-bottom: 200px;
+}
+
+
+.card_promo {
+    width: 90%;
+    height: 230px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    left: 0;
+    right: 0;
+    border: 1px solid grey;
+    bottom: -300px;
+}
+
+
+.promo {
+    color: white;
+    font-family: 'Rubik';
+    font-size: 16px;
+    line-height: 25px;
+    background: orange;
+    border-radius: 10px;
+    margin-right: 20px;
+    padding: 20px 50px;
+    transition: all 0.3s;
+}
+
+
+/* .name-one {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    align-items: center;
+    text-align: center;
+    color: #0B132A;
+} */
+
+
+
+@media only screen and (max-width: 428px) {
+    .box-center-content{
+        display: none;
+    }
+}

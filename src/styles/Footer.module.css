@@ -1,0 +1,109 @@
+/* CSS Footer */
+footer {
+    background: #F8F8F8;
+    padding-top: 100px;
+ }
+
+
+.footer-left img {
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    margin-right: 5px;
+}
+
+.footer-title-left {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #0B132A;
+}
+
+.footer-left p {
+    margin: 15px 120px 0px 0px;
+    text-align: justify;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 30px;
+    color: #4F5665;
+}
+
+.footer-left .copyright {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+    color: #AFB5C0;
+}
+
+.icon-footer a {
+    margin: 0px 15px 0px 0px;
+}
+
+.icon-footer img {
+    width: 35px;
+    height: 35px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    background-color: #6A4029;
+    border-radius: 20px;
+}
+
+
+
+.footer-right span {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    color: #0B132A;
+}
+
+.footer-right-link span {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    color: #4F5665;
+}
+
+
+
+@media only screen and (max-width: 428px) {
+    footer{
+        padding-top: 10px;
+    }
+    .footer-center-box{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .footer-left{
+        margin-top: 70px;
+        margin-left: 20px;
+    }
+    .footer-left p {
+        margin: 15px 20px 0px 0px;
+        text-align: justify;
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 30px;
+        color: #4F5665;
+    }
+
+    .ft-right{
+        /* margin-top: -100px; */
+        margin-left: 0px;
+        display: flex;
+    }
+}
