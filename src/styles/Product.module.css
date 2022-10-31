@@ -47,9 +47,8 @@
     color: #6A4029;
 }
 
-.nav-product span a {
-    text-decoration: none;
-    color: #6A4029;
+.nav-product span p {
+    cursor: pointer;
 }
 
 .nav-product span:hover {
@@ -233,7 +232,7 @@
 
 
 /* CSS Footer */
-footer {
+/* footer {
     background: #F8F8F8;
  }
 
@@ -306,4 +305,4 @@ footer {
     font-size: 16px;
     line-height: 30px;
     color: #4F5665;
-}
+} */

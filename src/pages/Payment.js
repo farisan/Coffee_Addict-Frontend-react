@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
-// import Navbar & Footer
+// import Component
 import Navbar from "../components/Navbar.js"
 import Footer from "../components/Footer.js"
+import titlebar from "../utility/WebDinamis"
 
 // import Css
 import styles from "../styles/Payment.module.css"
@@ -18,6 +19,7 @@ import icon_bank from "../asset/icon_bank.png";
 
 class Payment extends Component {
     render() {
+        titlebar("Coffee Addict | Payment")
         return (
             <>
                 {/* <!-- Start Navbar --> */}

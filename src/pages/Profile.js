@@ -8,6 +8,7 @@ import styles from "../styles/Profile.module.css"
 // import footer
 import Footer from "../components/Footer.js";
 import Navbar from "../components/Navbar.js";
+import titlebar from "../utility/WebDinamis"
 
 // import image
 import profile_image from "../asset/profil_image.png"
@@ -15,6 +16,7 @@ import icon_pencil from "../asset/icon_pensil.png"
 
 class Profile extends Component {
     render() {
+        titlebar("Coffee Addict | Profile")
         return (
             <>
                 {/* <!-- Start Navbar --> */}

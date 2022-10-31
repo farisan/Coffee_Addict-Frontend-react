@@ -7,14 +7,15 @@ import styles from "../styles/ProductDetail.module.css";
 // import components
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import titlebar from "../utility/WebDinamis"
 
 // import image
 import prod_cold_brew from "../asset/img_coldbrew.png";
 
 function ProductDetail() {
+   titlebar("Coffee Addict | Product Detail")
    return (
       <>
-
          <Navbar />
          <main className="container">
             <div className="row d-flex justify-content-center align-content-center flex-column flex-md-row position-relative">
@@ -22,7 +23,7 @@ function ProductDetail() {
                <section className="col-6 col-sm-12 col-lg-6 col-md-6 text-center">
                   <nav className="text-start">
                      <section className="text-start align-items-start fs-5">
-                        Favorite & Promo <i class="bi bi-chevron-right"></i>
+                        Favorite & Promo <i className="bi bi-chevron-right"></i>
                         <span>
                            <a className={styles.title_product} href="/">
                               Cold Brew
@@ -128,7 +129,7 @@ function ProductDetail() {
                      <div className="d-flex justify-content-center align-items-center">
                         <span className="fs-4 fw-bold">Checkout</span>
                         <button className={styles.button_checkout}>
-                           <i class="bi bi-arrow-right"></i>
+                           <i className="bi bi-arrow-right"></i>
                         </button>
                      </div>
                   </section>

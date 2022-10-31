@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 // import css
 import styles from "../styles/History.module.css"
+import titlebar from "../utility/WebDinamis"
 
 // import components
 import CardHistory from "../components/Card-history"
@@ -10,6 +11,7 @@ import Footer from "../components/Footer"
 
 class History extends Component {
     render() {
+        titlebar("Coffee Addict | History")
         return (
             <>
                 <Navbar />

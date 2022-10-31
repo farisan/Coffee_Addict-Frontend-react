@@ -5,6 +5,7 @@ import styles from "../styles/ForgotPWD.module.css"
 
 // import footer
 import Footerloginsignup from "../components/Footer-login-signup";
+import titlebar from "../utility/WebDinamis"
 
 
 // import images
@@ -14,6 +15,7 @@ import icon_coffee from "../asset/icon_coffee.png";
 
 class ForgotPWD extends Component {
     render() {
+        titlebar("Coffee Addict | History")
         return (
             <>
                 <main className={styles["container"]}>

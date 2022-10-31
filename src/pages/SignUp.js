@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom'
 // styling CSS SIGNUP
 import styles from "../styles/Signup.module.css"
 
-// Import Footer
+// Import Component
 import Footerloginsignup from '../components/Footer-login-signup';
+import titlebar from "../utility/WebDinamis"
+import withNavigate from "../helpers/withNavigate"
+
 
 // Import Images
 import bg_left from "../asset/Homepage_1.png";
@@ -17,6 +20,7 @@ import icon_google from "../asset/icon_google.png";
 
 class SignUp extends Component {
     render() {
+        titlebar("Coffee Addict | Sign-Up")
         return (
             <>
                 <main className={styles["container"]}>
@@ -44,7 +48,7 @@ class SignUp extends Component {
                                 <input type="tel" placeholder="Enter your phone number" />
                             </div>
                             <div className={styles["button"]}>
-                                <button>Sign Up</button>
+                                <button onClick={() => this.props.navigate("/login")}>Sign Up</button>
                             </div>
                             <div className={styles["button-google"]}>
                                 <span>
@@ -67,4 +71,7 @@ class SignUp extends Component {
 }
 
 
-export default SignUp;
+
+const newComponent = withNavigate(SignUp)
+
+export default newComponent
