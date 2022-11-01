@@ -57,7 +57,7 @@ class Home extends Component {
                             </div>
                             <div className={`${styles["right-nav"]} d-flex`}>
                                 <Link to="/login" className={`${styles["login-nav"]} d-none d-sm-block d-md-none d-lg-block d-sm-none`}><span>Login</span></Link>
-                                <Link to="/signup" className={`${styles["sign-up-nav"]} d-none d-sm-block d-md-none d-lg-block d-sm-none`}><span>Login</span></Link>
+                                <Link to="/signup" className={`${styles["sign-up-nav"]} d-none d-sm-block d-md-none d-lg-block d-sm-none`}><span>Sign-Up</span></Link>
                                 <Link to="#" className="nav-link d-lg-none d-sm-block"><span className={styles.burger}><i class="bi bi-list fs-4"></i></span></Link>
                             </div>
                         </nav>
