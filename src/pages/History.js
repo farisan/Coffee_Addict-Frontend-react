@@ -24,7 +24,7 @@ class History extends Component {
                             Long press to delete item
                         </div>
                     </section >
-                    <section className='container col-lg my-5'>
+                    <section className='container my-5'>
                         <section className='row justify-content-center'>
                             <CardHistory />
                             <CardHistory />
