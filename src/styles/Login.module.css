@@ -25,6 +25,7 @@
     position: relative;
     align-items: center;
     margin: 55px 55px 0px 56px;
+    text-decoration: none;
 }
 
 .icon-coffee img {

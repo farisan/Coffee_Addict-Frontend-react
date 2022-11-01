@@ -23,6 +23,7 @@
     position: relative;
     align-items: center;
     margin: 55px 0px 0px 56px;
+    text-decoration: none;
 }
 
 .icon-coffee img {
@@ -51,10 +52,12 @@
     font-size: 35px;
     line-height: 41px;
     color: #6A4029;
+    
 }
 
 .icon-coffee span {
     padding-left: 200px;
+    
 }
 
 
