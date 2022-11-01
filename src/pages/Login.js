@@ -98,11 +98,11 @@ function Login() {
                 </aside>
 
                 <aside className={styles["right-heading"]}>
-                    <div className={styles["icon-coffee"]}>
+                    <Link to="/" className={styles["icon-coffee"]}>
                         <img src={icon_coffee} alt="icon_coffee" />
                         <p>Coffee Addict</p>
                         <span>Login</span>
-                    </div>
+                    </Link>
                     <form className={styles.register} onSubmit={handleApi}>
                         <div className={styles.input}>
                             <label >Email :</label>

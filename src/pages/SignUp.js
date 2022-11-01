@@ -29,11 +29,11 @@ class SignUp extends Component {
                     </aside>
 
                     <aside className={styles["right-heading"]}>
-                        <div className={styles["icon-coffee"]}>
+                        <Link to="/" className={styles["icon-coffee"]}>
                             <img src={icon_coffee} alt="icon_coffee" />
                             <p>Coffee Addict</p>
                             <span>Sign Up</span>
-                        </div>
+                        </Link>
                         <form className={styles["register"]}>
                             <div className={styles["input"]}>
                                 <label for="">Email :</label>
