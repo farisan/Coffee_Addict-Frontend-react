@@ -66,7 +66,7 @@ function Login() {
             passwords,
         })
             .then((response) => {
-                alert('Login Success');
+                console.log("login success");
                 // console.log(response.data.result.data.token);
                 localStorage.setItem('token', JSON.stringify(response.data.result.data.token));
                 navigate('/')

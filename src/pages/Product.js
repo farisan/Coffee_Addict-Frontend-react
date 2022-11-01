@@ -47,32 +47,35 @@ class Product extends Component {
     Favorite = () => {
         axios
             .get(this.state.url)
-            .then((res) => this.setState({ product: res.data.result.data }));
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
+
     };
     Coffee = () => {
         axios
             .get(this.state.coffee)
-            .then((res) => this.setState({ product: res.data.result.data }));
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
     };
     NonCoffee = () => {
         axios
             .get(this.state.non_coffee)
-            .then((res) => this.setState({ product: res.data.result.data }));
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
     };
     Food = () => {
         axios
             .get(this.state.food)
-            .then((res) => this.setState({ product: res.data.result.data }));
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
     };
     AddOn = () => {
         axios
             .get(this.state.addons)
-            .then((res) => this.setState({ product: res.data.result.data }));
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
     };
-    // Kondisi ketika sudah di refresh dan otak atik data nya disini tanpa melakukan refresh
-    componentDidUpdate() {
 
-    }
 
 
 
