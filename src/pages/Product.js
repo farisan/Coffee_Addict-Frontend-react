@@ -28,11 +28,11 @@ class Product extends Component {
     // State awal
     state = {
         product: [],
-        url: `http://localhost:6060/coffee/product/?sorting=favorite&page=1&limit=12`,
-        coffee: `http://localhost:6060/coffee/product/?category=coffee&page=1&limit=12`,
-        non_coffee: `http://localhost:6060/coffee/product/?category=non_coffee&page=1&limit=12`,
-        food: `http://localhost:6060/coffee/product/?category=foods&page=1&limit=12`,
-        addons: `http://localhost:6060/coffee/product/?category=add-on&page=1&limit=12`,
+        url: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?sorting=favorite&page=1&limit=12`,
+        coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=coffee&page=1&limit=12`,
+        non_coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=non_coffee&page=1&limit=12`,
+        food: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=foods&page=1&limit=12`,
+        addons: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=addon&page=1&limit=12`,
     };
 
     // Kondisi ketika di refresh
