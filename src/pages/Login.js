@@ -30,21 +30,13 @@ import axios from "axios";
 
 // Function program
 function Login() {
-
-    // useState kondisi
-    const navigate = useNavigate()                      // => Untuk link ke halaman tetapi sebelum ngelink membawa kondisi
-
-    /* state show password */
-    const [type, setType] = useState('password');       // => type, kondisi awal || setType, kondisi berubah
+    const navigate = useNavigate()
+    const [type, setType] = useState('password');
     const [icon, setIcon] = useState(eyeOff);
-
-    /* state get token */
     const [email, setEmail] = useState('')
     const [passwords, setPasswords] = useState('')
 
 
-
-    /*  handle eye password open or close */
     const handleToggle = () => {
         if (type === 'password') {
             setIcon(eye);
@@ -57,12 +49,10 @@ function Login() {
 
 
     /*  get token localstorage */
-    // mengambil value dari email yang di input
     const handleEmail = (e) => {
         setEmail(e.target.value)
     }
 
-    // mengambil value dari password yang di input
     const handlePasswords = (e) => {
         setPasswords(e.target.value)
     }
@@ -72,8 +62,8 @@ function Login() {
         e.preventDefault();
         // console.log(email, passwords);
         axios.post(`${process.env.REACT_APP_BACKEND_HOST}coffee/auth`, {
-            email,   // <= body
-            passwords,   // <= body
+            email,
+            passwords,
         })
             .then((response) => {
                 alert('Login Success');
