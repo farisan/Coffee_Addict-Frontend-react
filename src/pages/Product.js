@@ -10,6 +10,7 @@ import styles from "../styles/Product.module.css"
 
 // import navbar dan footer
 import Navbar from "../components/Navbar"
+import NavbarnotLogin from "../components/Navbar-notLogin"
 import Footer from "../components/Footer"
 import CardProduct from "../components/Card-Product"
 import titlebar from "../utility/WebDinamis"
@@ -33,6 +34,8 @@ class Product extends Component {
         non_coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=non_coffee&page=1&limit=12`,
         food: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=foods&page=1&limit=12`,
         addons: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=addon&page=1&limit=12`,
+        navLogin: <Navbar />,
+        navnotLogin: <NavbarnotLogin />,
     };
 
     // Kondisi ketika di refresh
@@ -75,6 +78,13 @@ class Product extends Component {
             .then((res) => this.setState({ product: res.data.result.data }))
             .catch((err) => console.log(err));
     };
+    navtype = () => {
+        if (localStorage.getItem('token')) {
+            return this.state.navLogin
+        } else {
+            return this.state.navnotLogin
+        }
+    }
 
 
 
@@ -84,7 +94,7 @@ class Product extends Component {
         return (
             <>
 
-                <Navbar />
+                <this.navtype />
 
                 <section className={`${styles["style-bd"]} container-fluid d-flex flex-row flex-wrap`}>
                     <aside className={`${styles["product-left"]} d-flex flex-column align-items-center`}>

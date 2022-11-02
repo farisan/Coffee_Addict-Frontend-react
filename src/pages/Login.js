@@ -12,7 +12,7 @@ import titlebar from "../utility/WebDinamis"
 
 // import images
 import bg_left from "../asset/Homepage_1.png";
-import icon_coffee from "../asset/icon_coffee.png";
+import icon_coffee from "../asset/icon_titlebar.png";
 import icon_google from "../asset/icon_google.png";
 
 // import icon react bawaan
@@ -89,7 +89,7 @@ function Login() {
 
                 <aside className={styles["right-heading"]}>
                     <Link to="/" className={styles["icon-coffee"]}>
-                        <img src={icon_coffee} alt="icon_coffee" />
+                        <img src={icon_coffee} alt="icon_coffee" width="40px" height="40px" />
                         <p>Coffee Addict</p>
                         <span>Login</span>
                     </Link>

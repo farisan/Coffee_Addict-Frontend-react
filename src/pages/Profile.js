@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 // import css
 import styles from "../styles/Profile.module.css"
 
-// import footer
+// import Component
 import Footer from "../components/Footer.js";
 import Navbar from "../components/Navbar.js";
 import titlebar from "../utility/WebDinamis"
@@ -26,18 +26,21 @@ export default function Profile() {
 
     const navigate = useNavigate()
 
+
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             navigate('/login');
         }
     },);
 
+
+
     return (
         <>
             {/* <!-- Start Navbar --> */}
-            <main className="container-fluid bg-white">
-                <Navbar />
-            </main>
+
+            <Navbar />
+
             {/* <!-- End Navbar --> */}
 
 

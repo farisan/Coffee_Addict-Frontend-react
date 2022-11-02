@@ -7,7 +7,7 @@ import styles from "../styles/Footer-login-signup.module.css";
 import icon_instagram from "../asset/icon_instagram.png";
 import icon_facebook from "../asset/icon_facebook.png";
 import icon_twitter from "../asset/icon_twitter.png";
-import icon_coffee from "../asset/icon_coffee.png";
+import icon_coffee from "../asset/icon_titlebar.png";
 
 function Footer_login_signup() {
     return (

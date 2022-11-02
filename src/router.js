@@ -10,6 +10,7 @@ import ProductDetail from "./pages/ProductDetail";
 import ForgotPWD from "./pages/ForgotPWD";
 import Payment from "./pages/Payment";
 import History from "./pages/History";
+
 // import Error from "./pages/Error";
 
 const router = createBrowserRouter([
