@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Rubik:wght@400;500;600;700&display=swap');
+
+.step-one {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    color: #4F5665;
+    text-decoration: none;
+}
+
+.step-two {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color:#6A4029;
+}
+
+.profile-image {
+    padding-top: 5px;
+    width: 80%;
+    height: 50px;
+    background: #FFBA33;
+    border-radius: 20px;
+}
+input[type="file"] {
+    display:none;
+}
+
+.profile-image > label {
+    padding-top: 5px;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 30px;
+    color: #6A4029;
+}
+
+.change-profile {
+    width: 80%;
+    height: 50px;
+    border: none;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+    color: white;
+    background: #0B132A;
+    border-radius: 20px;
+}
+
+.delivery-hour {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 30px;
+    color: #6A4029;
+    width: 80%;
+}
+
+.dropdown-hour {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 138.84%;
+    letter-spacing: 0.03em;
+    color: #9F9F9F;
+    background: #FFFFFF;
+    border: 1px solid #9F9F9F;
+    border-radius: 15px;
+    width: 80%;
+    height: 60px;
+}
+
+.dropdown-title {
+    margin-left: 50px;
+    padding-left: 50px;
+}
+
+
+.data-form label {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: #6A4029;
+}
+
+.data-form input {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    border:none;
+    border-bottom: 1px solid black;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.data-form input:focus {
+    border-bottom: 2px solid #FFBA33;
+    transform: scale(1.1);
+  }
+
+  [placeholder]:focus::-webkit-input-placeholder {
+    transition: text-indent 0.3s 0.1s ease; 
+    text-indent: -100%;
+    opacity: 1;
+ }
+
+ .input-product-size {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: #6A4029;
+ }
+
+ .input-product-desc {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #9F9F9F;
+    margin-top: 10px;
+ }
+
+ .size {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    text-align: center;
+    color: #000000;
+}
+
+.size button {
+    width: 70px;
+    height: 70px;
+    margin-right: 40px;
+    background: #FFBA33;
+    font-weight: 700;
+    border: none;
+}
+
+.method {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    /* line-height: 38px; */
+    text-align: center;
+    color: #000000;
+}
+
+.method button {
+    width: 100%;
+    height: 70px;
+    margin-right: 10px;
+    background: #FFBA33;
+    font-weight: 700;
+    border: none;
+}
+
+.save-product {
+    background: #6A4029;
+    box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.4);
+    border-radius: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 138.84%;
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
+    border: none;
+    width: 100%;
+    height: 50px;
+    margin-top: 140px;
+}
+
+.cancel-product {
+    background: #BABABA;
+    background: 0px 6px 10px rgba(186, 186, 186, 0.35);
+    border-radius: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 138.84%;
+    letter-spacing: 0.03em;
+    color: #4F5665;
+    border: none;
+    width: 100%;
+    height: 50px;
+}
+
+
+@media only screen and (max-width: 767px) {
+    
+  }
+
+@media only screen and (max-width: 428px) {
+
+}

@@ -64,6 +64,7 @@
     text-align: center;
     color: #000000;
     margin-bottom: 30px;
+    margin-top: 20px;
 }
 
 .profile-image {
@@ -205,11 +206,11 @@ border-bottom: 10px solid #6A4029;
 
 .data-form label {
     font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 15px;
-line-height: 30px;
-color: #9F9F9F;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+    color: #9F9F9F;
 }
 
 .data-form input {
