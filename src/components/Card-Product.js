@@ -1,27 +1,36 @@
 // import React, { Component } from 'react'
 import React from 'react'
+import { useNavigate } from "react-router-dom";
+import withParams from "../helpers/withRouteParams";
 
 // import css
 import styles from "../styles/ListProduct.module.css"
 
 
-import image_product from "../asset/product-7.png"
+// import image_product from "../asset/product-7.png"
 
 
-export default function card_Product(props) {
-
+function Card_Product(props) {
+    const navigate = useNavigate();
 
     return (
-        <div className={`col-md-2 p-4 position-relative text-wrap ${styles["content-product"]}`}>
-            <img className={styles["list-product-image"]} src={`http://localhost:6060/${props.image_product}`} alt="image_product" />
+        <div
+            onClick={() => {
+                navigate(`/productdetail/${props.id}`);
+            }}
+
+            className={`col-md-2 p-4 position-relative text-wrap ${styles["content-product"]}`}>
+            <img className={styles["list-product-image"]} src={`http://localhost:6060/${props.image_product}`} alt="image_product" width="50px" height="50px" />
             {/* <div className={styles["label-promo"]}>
                 <p>{props.discount}<span>%</span></p>
             </div> */}
             <p className={styles.title}>{props.product_name}</p>
-            <p className={styles.price}><span>IDR</span> {props.price}</p>
+            <p className={styles.price}>{props.size}</p>
+            <p className={styles.price}>{props.price}</p>
         </div>
     )
 }
+export default withParams(Card_Product)
 
 
 // className List_Product extends Component {
