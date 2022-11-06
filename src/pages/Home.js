@@ -9,6 +9,7 @@ import styles from "../styles/Home.module.css";
 import Footer from "../components/Footer.js";
 import titlebar from "../utility/WebDinamis"
 import Navbar from "../components/Navbar"
+import NavbarAdmin from "../components/NavbarAdmin"
 import NavbarnotLogin from "../components/Navbar-notLogin"
 
 // import image
@@ -41,20 +42,22 @@ class Home extends Component {
 
     state = {
         navLogin: <Navbar />,
+        navAdmin: <NavbarAdmin />,
         navnotLogin: <NavbarnotLogin />,
     };
 
 
     navtype = () => {
         if (localStorage.getItem('token')) {
-            return this.state.navLogin
+            if (localStorage.getItem("role") === "user") {
+                return this.state.navLogin
+            } else {
+                return this.state.navAdmin
+            }
         } else {
             return this.state.navnotLogin
         }
     }
-    componentDidMount() {
-    }
-
 
 
 
