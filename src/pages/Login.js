@@ -67,8 +67,13 @@ function Login() {
         })
             .then((response) => {
                 console.log("login success");
-                // console.log(response.data.result.data.token);
-                localStorage.setItem('token', JSON.stringify(response.data.result.data.token));
+                // console.log(response.data.result.data);
+                // const userData = {
+                //     token: response.data.result.data.token,
+                //     role: response.data.result.data.role,
+                // }
+                localStorage.setItem('token', (response.data.result.data.token));
+                localStorage.setItem('role', (response.data.result.data.role));
                 navigate('/')
             })
             .catch((err) => {

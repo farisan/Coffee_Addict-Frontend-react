@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 // styling CSS SIGNUP
 import styles from "../styles/Signup.module.css"
@@ -15,10 +16,69 @@ import bg_left from "../asset/Homepage_1.png";
 import icon_coffee from "../asset/icon_titlebar.png";
 import icon_google from "../asset/icon_google.png";
 
-
+// import icon react bawaan
+import { Icon } from 'react-icons-kit'
+import { eye } from 'react-icons-kit/feather/eye'
+import { eyeOff } from 'react-icons-kit/feather/eyeOff'
 
 
 class SignUp extends Component {
+
+    state = {
+        email: "",
+        passwords: "",
+        phone_number: "",
+        type: "password",
+        icon: eye,
+    }
+
+    handleToggle = () => {
+        if (this.state.type === 'password') {
+            this.setState({ icon: eye });
+            this.setState({ type: 'text' });
+        } else {
+            this.setState({ icon: eyeOff });
+            this.setState({ type: 'password' });
+        }
+    }
+
+    handleEmail = (e) => {
+        this.setState({
+            email: e.target.value,
+            data: console.log(e.target.value),
+        });
+    }
+    handlePasswords = (e) => {
+        this.setState({
+            passwords: e.target.value,
+            data: console.log(e.target.value),
+        });
+    }
+    handlePhone_number = (e) => {
+        this.setState({
+            phone_number: e.target.value,
+            data: console.log(e.target.value),
+        });
+    }
+
+    handlingRegister = (e) => {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_BACKEND_HOST}coffee/users`, {
+            email: this.state.email,
+            passwords: this.state.passwords,
+            phone_number: this.state.phone_number,
+        })
+            .then((response) => {
+                console.log(response.data.result);
+                this.props.navigate("/login");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        this.setState({ email: "", passwords: "", phone_number: "" });
+    }
+
+
     render() {
         titlebar("Coffee Addict | Sign-Up")
         return (
@@ -34,21 +94,42 @@ class SignUp extends Component {
                             <p>Coffee Addict</p>
                             <span>Sign Up</span>
                         </Link>
-                        <form className={styles["register"]}>
+                        <form className={styles["register"]} onSubmit={this.handlingRegister}>
                             <div className={styles["input"]}>
                                 <label for="">Email :</label>
-                                <input type="text" placeholder="Enter your email address" />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Enter your email address"
+                                    onChange={this.handleEmail}
+                                    value={this.state.email}
+                                    required />
                             </div>
                             <div className={styles["input"]}>
                                 <label for="">Password :</label>
-                                <input type="password" placeholder="Enter your password" />
+                                <input type={this.state.type}
+                                    name="passwords"
+                                    id="passwords"
+                                    placeholder="Enter your password"
+                                    onChange={this.handlePasswords}
+                                    value={this.state.passwords}
+                                    required />
                             </div>
+                            <div onClick={this.handleToggle} className="w-100 ms-5 me-5">Show Password<Icon icon={this.state.icon} className="ms-2 my-2" /></div>
                             <div className={styles["input"]}>
                                 <label for="">Phone Number :</label>
-                                <input type="tel" placeholder="Enter your phone number" />
+                                <input
+                                    type="tel"
+                                    name="phone_number"
+                                    id="phone_number"
+                                    placeholder="Enter your phone number"
+                                    onChange={this.handlePhone_number}
+                                    value={this.state.phone_number}
+                                    required />
                             </div>
                             <div className={styles["button"]}>
-                                <button onClick={() => this.props.navigate("/login")}>Sign Up</button>
+                                <button >Sign Up</button>
                             </div>
                             <div className={styles["button-google"]}>
                                 <span>
@@ -59,7 +140,7 @@ class SignUp extends Component {
                             </div>
                             <h2><span>Already have an account?</span></h2>
                             <Link to="/Login" className={styles["button-login"]}>
-                                <button>Login</button>
+                                <button type='submit'>Login</button>
                             </Link>
                         </form>
                         <Footerloginsignup />
