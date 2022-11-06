@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
+// import Axios from 'axios'
 
 // import Component
 import Navbar from "../components/Navbar.js"
 import Footer from "../components/Footer.js"
 import titlebar from "../utility/WebDinamis"
+import CardPayment from '../components/CardPayment.js'
 
 // import Css
 import styles from "../styles/Payment.module.css"
 
 // import image
-import payment_image_1 from "../asset/payment_image_1.png";
-import payment_image_2 from "../asset/payment_image_2.png";
 import icon_card from "../asset/icon_card.png";
 import icon_cod from "../asset/icon_cod.png";
 import icon_bank from "../asset/icon_bank.png";
@@ -18,6 +18,11 @@ import icon_bank from "../asset/icon_bank.png";
 
 
 class Payment extends Component {
+
+    // componentDidMount() {
+    //     Axios.get()
+    // }
+
     render() {
         titlebar("Coffee Addict | Payment")
         return (
@@ -35,29 +40,8 @@ class Payment extends Component {
                                     <div className={styles['box-left']}>
                                         <p>Order Summary</p>
                                         {/* payment 1 */}
-                                        <div className={styles['payment-content']}>
-                                            <img src={payment_image_1} alt='Payment1' width="100px" height="100px"></img>
-                                            <div className={styles['payment-center']}>
-                                                <p>Hazelnut Latte</p>
-                                                <p>x1</p>
-                                                <p>Reguler</p>
-                                            </div>
-                                            <div className={styles['payment-idr']}>
-                                                <p>IDR 24.0</p>
-                                            </div>
-                                        </div>
-                                        {/* payment 2 */}
-                                        <div className={styles['payment-content']}>
-                                            <img src={payment_image_2} alt='Payment2' width="100px" height="100px"></img>
-                                            <div className={styles['payment-center']}>
-                                                <p>Chicken Fire Wings</p>
-                                                <p>x2</p>
-                                                <p></p>
-                                            </div>
-                                            <div className={styles['payment-idr']}>
-                                                <p>IDR 24.0</p>
-                                            </div>
-                                        </div>
+                                        <CardPayment />
+
                                         {/* subtotal */}
                                         <hr className='mx-5 my-4'></hr>
                                         <div className={styles['total-payment']}>
