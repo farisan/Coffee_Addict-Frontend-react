@@ -12,7 +12,7 @@ import NavbarAdmin from "../../components/NavbarAdmin"
 import NavbarnotLogin from "../../components/Navbar-notLogin"
 import Footer from "../../components/Footer"
 import CardPromo from "../../components/CardPromo"
-import Cardproduct from "../../components/Card-Product"
+import Cardproduct from "../../components/CardProductAdmin"
 import titlebar from "../../utility/WebDinamis"
 
 
@@ -118,7 +118,6 @@ class Handlingproduct extends Component {
                                     <p>4. Should make member card to apply coupon</p>
                                 </div>
                                 <div className={`d-flex flex-column justify-content-start w-100 ${styles["edit-link-promo"]}`}>
-                                    <Link to="/updatepromo">Edit Promo</Link>
                                     <Link to="/updatepromo">Add New Promo</Link>
                                 </div>
                             </div>
@@ -147,7 +146,6 @@ class Handlingproduct extends Component {
                                     <p className={styles["note-price"]}>*the price has been cutted by discount appears</p>
                                 </div>
                                 <div className={`d-flex flex-column justify-content-start w-100 ms-5 mt-4 mb-3 ${styles["edit-link-promo"]}`} >
-                                    <Link to="/updateproduct">Edit Product</Link>
                                     <Link to="/updateproduct" className="mt-2">Add New Product</Link>
                                 </div>
                             </div>

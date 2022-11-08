@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // styling CSS SIGNUP
 import styles from "../styles/Signup.module.css"
@@ -60,6 +62,11 @@ class SignUp extends Component {
             data: console.log(e.target.value),
         });
     }
+    SuccessMessage = () => {
+        toast.success('Register Success !', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
 
     handlingRegister = (e) => {
         e.preventDefault();
@@ -70,10 +77,16 @@ class SignUp extends Component {
         })
             .then((response) => {
                 console.log(response.data.result);
-                this.props.navigate("/login");
+                this.SuccessMessage()
+                setTimeout(() => this.props.navigate("/login"), 5000);
+                // this.props.navigate("/login");
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err.response.data.msg);
+                toast.error(err.response.data.msg, {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+
             });
         this.setState({ email: "", passwords: "", phone_number: "" });
     }
@@ -83,6 +96,7 @@ class SignUp extends Component {
         titlebar("Coffee Addict | Sign-Up")
         return (
             <>
+                <ToastContainer />
                 <main className={styles["container"]}>
                     <aside className={styles["left-heading"]}>
                         <img src={bg_left} width="100%" height="100%" alt="homepage" />

@@ -75,7 +75,7 @@ class ProductDetail extends Component {
                      <img
                         className={`${styles.content_left} my-5`}
                         // src={prod_cold_brew}
-                        src={`http://localhost:6060/${this.state.image}`}
+                        src={this.state.image}
                         alt="img_product"
                      />
                      <section
@@ -162,7 +162,7 @@ class ProductDetail extends Component {
                         <div className="d-flex justify-content-center align-items-center">
                            <img
                               className="me-3"
-                              src={`http://localhost:6060/${this.state.image}`}
+                              src={this.state.image}
                               alt="img_product"
                            />
                            <section className="d-flex flex-column justify-content-center">

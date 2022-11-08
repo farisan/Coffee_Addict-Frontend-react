@@ -1,5 +1,7 @@
 // import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import css
 import styles from "../styles/Login.module.css"
@@ -48,6 +50,17 @@ function Login() {
     }
 
 
+    const SuccessMessage = () => {
+        toast.success('Login Success !', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+    const ErrorMessage = () => {
+        toast.error('Email or Password WRONG !!!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
     /*  get token localstorage */
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -74,10 +87,12 @@ function Login() {
                 // }
                 localStorage.setItem('token', (response.data.result.data.token));
                 localStorage.setItem('role', (response.data.result.data.role));
-                navigate('/')
+                SuccessMessage()
+                setTimeout(() => navigate('/'), 5000);
+
             })
             .catch((err) => {
-                alert('Email or Password is WRONG !!!');
+                ErrorMessage()
                 console.log(err);
             })
     }
@@ -87,6 +102,7 @@ function Login() {
     titlebar("Coffee Addict | Login")
     return (
         <>
+            <ToastContainer />
             <main className={styles["container"]}>
                 <aside className={styles["left-heading"]}>
                     <img src={bg_left} width="100%" height="100%" alt="homepage" />

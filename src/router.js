@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     { path: "/product", element: <Product /> },
     {
         path: "/profile", element:
-            <PrivateElement allowedRoles={["user"]}>
+            <PrivateElement allowedRoles={["user", "admin"]}>
                 <Profile />
             </PrivateElement>
     },
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
 
 
     {
-        path: "/updateproduct", element:
+        path: "/updateproduct/:id", element:
             <PrivateElement allowedRoles={["admin"]}>
                 <Updateproduct />
             </PrivateElement>

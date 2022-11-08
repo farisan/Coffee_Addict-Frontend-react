@@ -5,7 +5,26 @@
 
 
 
+.input__radio {
+    /* margin-top: 25px; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
 
+.input__radio .radio_label {
+    color: #6A4029;
+    font-weight: 700;
+}
+
+.input__radio input[type="radio"] {
+    height: 30px;
+    width: 30px;
+    accent-color: #FFBA33;
+    margin-right: 10px;
+    margin-left: 10px;
+    border: 1px solid #6A4029;
+}
 
 
 

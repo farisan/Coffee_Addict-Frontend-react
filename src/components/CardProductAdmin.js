@@ -10,13 +10,13 @@ import styles from "../styles/ListProduct.module.css"
 // import image_product from "../asset/product-7.png"
 
 
-function Card_Product(props) {
+function CardProductAdmin(props) {
     const navigate = useNavigate();
 
     return (
         <div
             onClick={() => {
-                navigate(`/productdetail/${props.id}`);
+                navigate(`/updateproduct/${props.id}`);
             }}
 
             className={`col-md-2 p-4 position-relative text-wrap ${styles["content-product"]}`}>
@@ -30,25 +30,4 @@ function Card_Product(props) {
         </div>
     )
 }
-export default withParams(Card_Product)
-
-
-// className List_Product extends Component {
-//     render() {
-//         return (
-//             <>
-//                 <div
-//                     className={`col-md-2 p-4 position-relative text-wrap ${styles["content-product"]}`}>
-//                     <img className={styles["list-product-image"]} src={image_product} alt="image_product" />
-//                     <div className={styles["label-promo"]}>
-//                         <p>10%</p>
-//                     </div>
-//                     <p className={styles.title}>Summer Fried Rice</p>
-//                     <p className={styles.price}>IDR 34.000</p>
-//                 </div>
-//             </>
-//         )
-//     }
-// }
-
-// export default List_Product;
+export default withParams(CardProductAdmin)
