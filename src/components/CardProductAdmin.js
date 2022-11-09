@@ -16,7 +16,7 @@ function CardProductAdmin(props) {
     return (
         <div
             onClick={() => {
-                navigate(`/updateproduct/${props.id}`);
+                navigate(`/handlingproduct/updateproduct/${props.id}`);
             }}
 
             className={`col-md-2 p-4 position-relative text-wrap ${styles["content-product"]}`}>

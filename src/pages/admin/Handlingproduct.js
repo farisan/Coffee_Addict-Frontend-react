@@ -118,7 +118,7 @@ class Handlingproduct extends Component {
                                     <p>4. Should make member card to apply coupon</p>
                                 </div>
                                 <div className={`d-flex flex-column justify-content-start w-100 ${styles["edit-link-promo"]}`}>
-                                    <Link to="/updatepromo">Add New Promo</Link>
+                                    <Link to="/handlingproduct/addpromo">Add New Promo</Link>
                                 </div>
                             </div>
 
@@ -146,7 +146,7 @@ class Handlingproduct extends Component {
                                     <p className={styles["note-price"]}>*the price has been cutted by discount appears</p>
                                 </div>
                                 <div className={`d-flex flex-column justify-content-start w-100 ms-5 mt-4 mb-3 ${styles["edit-link-promo"]}`} >
-                                    <Link to="/updateproduct" className="mt-2">Add New Product</Link>
+                                    <Link to="/handlingproduct/addproduct" className="mt-2">Add New Product</Link>
                                 </div>
                             </div>
                         </div>

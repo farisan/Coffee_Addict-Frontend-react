@@ -11,7 +11,9 @@ import ForgotPWD from "./pages/ForgotPWD";
 import Payment from "./pages/Payment";
 import History from "./pages/History";
 import Updateproduct from "./pages/admin/UpdateProduct"
+import AddProduct from "./pages/admin/AddProduct"
 import Updatepromo from "./pages/admin/UpdatePromo"
+import AddPromo from "./pages/admin/AddPromo"
 import Handlingproduct from "./pages/admin/Handlingproduct"
 
 import PrivateElement from "./components/PrivateElement.js";
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
 
 
     {
-        path: "/updateproduct/:id", element:
+        path: "/handlingproduct/updateproduct/:id", element:
             <PrivateElement allowedRoles={["admin"]}>
                 <Updateproduct />
             </PrivateElement>
@@ -69,6 +71,18 @@ const router = createBrowserRouter([
         path: "/updatepromo", element:
             <PrivateElement allowedRoles={["admin"]}>
                 <Updatepromo />
+            </PrivateElement>
+    },
+    {
+        path: "/handlingproduct/addproduct", element:
+            <PrivateElement allowedRoles={["admin"]}>
+                <AddProduct />
+            </PrivateElement>
+    },
+    {
+        path: "/handlingproduct/addpromo", element:
+            <PrivateElement allowedRoles={["admin"]}>
+                <AddPromo />
             </PrivateElement>
     },
     {
