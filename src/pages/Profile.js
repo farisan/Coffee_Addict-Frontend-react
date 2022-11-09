@@ -156,12 +156,11 @@ class Profile extends Component {
     }
 
     handleCancel = () => {
-        this.setState.address("")
-        this.setState.displayname("")
-        this.setState.firstname("")
-        this.setState.lastname("")
-        this.setState.gender("")
-
+        this.state.address("")
+        this.state.displayname("")
+        this.state.firstname("")
+        this.state.lastname("")
+        this.state.gender("")
     }
 
 
@@ -236,9 +235,9 @@ class Profile extends Component {
                                         type="text"
                                         name="address"
                                         id="address"
-                                        // value={address}
+                                        value={address}
                                         onChange={this.valueAddress}
-                                        placeholder={address}
+                                        placeholder="Input your address"
                                         disabled={this.state.isEdit} />
                                 </div>
                                 <div className={`${styles["form-data"]} d-flex flex-column m-4 w-50`}>
@@ -261,25 +260,25 @@ class Profile extends Component {
                                     <input type="text"
                                         name="displayname"
                                         id="displayname"
-                                        // value={displayname}
+                                        value={displayname}
                                         onChange={this.valueDisplayname}
-                                        placeholder={displayname}
+                                        placeholder="Input displayname"
                                         disabled={this.state.isEdit} />
                                     <label for="">First Name :</label>
                                     <input type="text"
                                         name="firstname"
                                         id="firstname"
-                                        // value={firstname}
+                                        value={firstname}
                                         onChange={this.valueFirstname}
-                                        placeholder={firstname}
+                                        placeholder="Input firstname"
                                         disabled={this.state.isEdit} />
                                     <label for="">Last Name :</label>
                                     <input type="text"
                                         name="lastname"
                                         id="lastname"
-                                        // value={lastname}
+                                        value={lastname}
                                         onChange={this.valueLastname}
-                                        placeholder={lastname}
+                                        placeholder="Input lastname"
                                         disabled={this.state.isEdit} />
                                 </div>
                                 <div className={`${styles["form-data"]} d-flex flex-column m-4 w-50`}>
