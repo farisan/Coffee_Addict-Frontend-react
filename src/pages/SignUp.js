@@ -78,8 +78,7 @@ class SignUp extends Component {
             .then((response) => {
                 console.log(response.data.result);
                 this.SuccessMessage()
-                setTimeout(() => this.props.navigate("/login"), 5000);
-                // this.props.navigate("/login");
+                setTimeout(() => this.props.navigate("/login"), 3000);
             })
             .catch((err) => {
                 // console.log(err.response.data.msg);
