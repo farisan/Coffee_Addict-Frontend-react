@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     { path: "/product", element: <Product /> },
     {
         path: "/profile", element:
-            <PrivateElement allowedRoles={["user", "admin"]}>
+            <PrivateElement allowedRoles={["user"]}>
                 <Profile />
             </PrivateElement>
     },
