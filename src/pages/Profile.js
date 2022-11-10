@@ -14,7 +14,8 @@ import titlebar from "../utility/WebDinamis"
 import Navbar from "../components/Navbar.js";
 import NavbarAdmin from "../components/NavbarAdmin"
 import NavbarnotLogin from "../components/Navbar-notLogin"
-import withNavigate from "../helpers/withNavigate";
+import withNavigate from '../helpers/withNavigate';
+
 
 // import image
 import icon_pencil from "../asset/icon_pensil.png"
@@ -26,6 +27,7 @@ class Profile extends Component {
     state = {
         url: `${process.env.REACT_APP_BACKEND_HOST}coffee/users/UserID`,
         urlpatch: `${process.env.REACT_APP_BACKEND_HOST}coffee/users/profile`,
+        urlLogout: `${process.env.REACT_APP_BACKEND_HOST}coffee/auth`,
         email: "",
         address: "",
         phone_number: "",
@@ -33,14 +35,45 @@ class Profile extends Component {
         firstname: "",
         lastname: "",
         birthday: "",
+        image: "",
+        display: null,
+        addressnotSAVE: "",
         isEdit: true,
+        isLoading: true,
         navLogin: <Navbar />,
         navAdmin: <NavbarAdmin />,
         navnotLogin: <NavbarnotLogin />,
+        // file: null,
     }
 
-
     componentDidMount() {
+        this.getData()
+    }
+
+    // componentDidUpdate() {
+    //     if (this.state.isLoading) {
+    //         this.getData()
+    //         this.setState({ isLoading: false })
+    //     }
+    // }
+
+    selectImage = () => {
+        if (!this.state.image) return this.state.display
+        return URL.createObjectURL(this.state.image)
+    }
+
+    handleEditDate = () => {
+        this.setState({ isEdit: false })
+    }
+
+    handleFile = (e) => {
+        let file = e.target.files[0]
+        this.setState({ image: file })
+        // console.log(e.target.files[0]);
+        // console.log(URL.createObjectURL(e.target.files[0]));
+    }
+
+    getData = () => {
         const getToken = localStorage.getItem('token')
         // console.log(getToken);
         Axios.get(this.state.url, {
@@ -50,12 +83,13 @@ class Profile extends Component {
         }).then((response) => {
             this.setState({
                 // debug: console.log(response.data.result[0].gender),
-                // .slice(0, 10).split("-").reverse().join("/")
-                image: response.data.result[0].image,
+                display: response.data.result[0].image,
                 email: response.data.result[0].email,
                 address: response.data.result[0].address,
+                addressnotSAVE: response.data.result[0].address,
                 phone_number: response.data.result[0].phone_number,
                 displayname: response.data.result[0].displayname,
+                displaynamenotSAVE: response.data.result[0].displayname,
                 firstname: response.data.result[0].firstname,
                 lastname: response.data.result[0].lastname,
                 birthday: response.data.result[0].birthday,
@@ -66,13 +100,13 @@ class Profile extends Component {
         });
     }
 
+
     // get value input
     valueEmail = (e) => {
         this.setState({ email: e.target.value });
     };
     valueAddress = (e) => {
         this.setState({ address: e.target.value });
-        console.log(this.state.address);
     };
     valuePhone_number = (e) => {
         this.setState({ phone_number: e.target.value });
@@ -92,9 +126,11 @@ class Profile extends Component {
     valueGender = (e) => {
         this.setState({ gender: e.target.value });
     };
-    // handleChangeImage = e => {
-    //     this.setState({ [e.target.name]: URL.createObjectURL(e.target.files[0]) })
-    // }
+
+    handleCancel = (e) => {
+        e.preventDefault()
+        this.getData()
+    }
 
     navtype = () => {
         if (localStorage.getItem('token')) {
@@ -106,6 +142,17 @@ class Profile extends Component {
         } else {
             return this.state.navnotLogin
         }
+    }
+
+    handleLogout = () => {
+        const getToken = localStorage.getItem('token')
+        Axios.delete(this.state.urlLogout, {
+            headers: {
+                "x-access-token": getToken,
+            },
+        })
+            .then(console.log("success logout"))
+            .catch((err) => console.log(err))
     }
 
 
@@ -120,26 +167,32 @@ class Profile extends Component {
         });
     };
 
+
     // memasukan data kedatabase
-    submitEditprofile = async (e) => {
+    submitEditprofile = (e) => {
         e.preventDefault();
         // console.log(this.state.address);
         try {
+            let formdata = new FormData()
+            let images = this.state.image
+            if (images) formdata.append('image', images)
+            if (this.state.address) formdata.append('address', this.state.address)
+            if (this.state.displayname) formdata.append('displayname', this.state.displayname)
+            if (this.state.firstname) formdata.append('firstname', this.state.firstname)
+            if (this.state.lastname) formdata.append('lastname', this.state.lastname)
+            if (this.state.gender) formdata.append('gender', this.state.gender)
+            if (this.state.birthday) formdata.append('birthday', this.state.birthday)
             const getToken = localStorage.getItem('token')
-            Axios.patch(this.state.urlpatch, {
-                address: this.state.address,
-                image: this.state.image,
-                displayname: this.state.displayname,
-                firstname: this.state.firstname,
-                lastname: this.state.lastname,
-                birthday: this.state.birthday,
-                gender: this.state.gender,
-            }, {
-                headers: {
-                    "x-access-token": getToken,
-                }
-            })
-            this.SuccessMessage()
+            Axios.patch(this.state.urlpatch,
+                formdata
+                , {
+                    headers: {
+                        "x-access-token": getToken,
+                    }
+                }).then(() => {
+                    this.SuccessMessage()
+                    this.setState({ isLoading: false, isEdit: true })
+                })
             // setTimeout(() => this.props.navigate('/profile'), 5000);
         } catch (err) {
             // alert("input error")
@@ -151,17 +204,8 @@ class Profile extends Component {
     }
 
 
-    handleEditDate = () => {
-        this.setState({ isEdit: false })
-    }
 
-    handleCancel = () => {
-        this.state.address("")
-        this.state.displayname("")
-        this.state.firstname("")
-        this.state.lastname("")
-        this.state.gender("")
-    }
+
 
 
     render() {
@@ -175,9 +219,10 @@ class Profile extends Component {
             firstname,
             lastname,
             birthday,
-            gender
+            gender,
         } = this.state;
-        // console.log(this.state.address);
+        console.log(image);
+
         return (
             <>
                 <ToastContainer />
@@ -193,27 +238,41 @@ class Profile extends Component {
                     <form className={`container ${styles["form-profile"]} d-flex flex-warp rounded-4`}>
                         <div className={`${styles["profile"]} py-4 d-flex flex-column justify-content-center align-items-center`}>
                             <Link to="">
-                                <img src={image} alt="profile_picture" width="170px" height="180px" className="rounded-circle mt-4" />
+                                {/* <img src={image} alt="profile_picture" width="170px" height="180px" className="rounded-circle mt-4" /> */}
+                                <img src={this.selectImage()} alt="profile_picture" width="170px" height="180px" className="rounded-circle mt-4" />
                             </Link>
-                            <span className={styles["name-profile"]} >{displayname}</span>
+                            <span className={styles["name-profile"]} >{this.state.displaynamenotSAVE}</span>
                             <p className={styles["email-profile"]}>{email}</p>
                             <div className={`${styles["profile-image"]} text-center rounded-5`}>
                                 <label for="img-profile">Choose Photo</label>
-                                <input type="file" id="img-profile" />
+                                <input
+                                    type="file"
+                                    name='file'
+                                    id="img-profile"
+                                    onChange={(e) => this.handleFile(e)} />
                                 {/* style="display:none;" */}
                             </div>
                             <button className={`${styles["remove-profile"]} mt-3 rounded-5`}>Remove Photo</button>
                             <button className={`${styles["editpwd-profile"]} mt-5 rounded-5`}>Edit Password</button>
                             <span className={`${styles["save-change-profile"]} text-center mt-5 fs-4`}>Do you want to save the change?</span>
                             <button className={`${styles["change-profile"]} mt-5 rounded-5`} onClick={this.submitEditprofile}>Save Change</button>
-                            <button className={`${styles["cancel-profile"]} mt-3 rounded-5`} onClick={this.handleCancel}>Cancel</button>
-                            <button className={`${styles["editpwd-profile"]} mt-5 rounded-5`} onClick={() => {
-                                localStorage.removeItem('token')
-                                localStorage.removeItem('role')
-                                this.LogoutMessage()
-                            }}>Logout</button>
-                        </div>
+                            {/* <button className={`${styles["cancel-profile"]} mt-3 rounded-5`} onClick={this.handleCancel}>Cancel</button> */}
+                            <button className={`${styles["cancel-profile"]} mt-3 rounded-5`} onClick={(e) => {
+                                e.preventDefault()
 
+                            }}>Cancel</button>
+                            <button className={`${styles["editpwd-profile"]} mt-5 rounded-5`} onClick={(e) => {
+                                e.preventDefault()
+                                this.handleLogout()
+                                localStorage.removeItem('role')
+                                localStorage.removeItem('token')
+                                this.LogoutMessage()
+                                setTimeout(() => {
+                                    this.props.navigate("/login");
+                                }, 2000);
+                            }}
+                            >Logout</button>
+                        </div>
                         {/* <!-- form Right --> */}
                         <div className={`${styles["form"]} mx-2 my-5 d-flex flex-column w-100`}>
                             <div className={`${styles["title-form"]} d-flex flex-row justify-content-between my-3 px-5 py-2 `}>
@@ -237,6 +296,7 @@ class Profile extends Component {
                                         id="address"
                                         value={address}
                                         onChange={this.valueAddress}
+                                        // onChange={(e) => e.address.target.value}
                                         placeholder="Input your address"
                                         disabled={this.state.isEdit} />
                                 </div>
