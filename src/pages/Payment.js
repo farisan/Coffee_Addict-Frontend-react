@@ -14,6 +14,7 @@ import styles from "../styles/Payment.module.css"
 import icon_card from "../asset/icon_card.png";
 import icon_cod from "../asset/icon_cod.png";
 import icon_bank from "../asset/icon_bank.png";
+import { connect } from 'react-redux'
 
 
 
@@ -72,8 +73,8 @@ class Payment extends Component {
                                             </div>
                                             <div className={styles['box-address']}>
                                                 <h5><b className='me-1'>Delivery</b>to Iskandar Street</h5>
-                                                <p className={styles['address-column']}>Km 5 refinery road oppsite republic road, effurun, Jakarta</p>
-                                                <p>+62 81348287878</p>
+                                                <p className={styles['address-column']}>{this.props.address}</p>
+                                                <p>{this.props.phone_number}</p>
                                             </div>
                                         </div>
                                         <div className='col-12'>
@@ -129,4 +130,13 @@ class Payment extends Component {
     }
 }
 
-export default Payment;
+const mapStateToProps = (reduxState) => {
+    console.log(reduxState);
+    return {
+        address: reduxState.checkout.address,
+        phone_number: reduxState.checkout.phone_number,
+        counter: reduxState.counter.number
+    };
+};
+
+export default connect(mapStateToProps)(Payment);

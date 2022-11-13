@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 // import css
 import styles from "../styles/Login.module.css"
 
@@ -24,7 +25,7 @@ import { eyeOff } from 'react-icons-kit/feather/eyeOff'
 
 
 import React from 'react'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import withNavigate from "../helpers/withNavigate";
 import axios from "axios";
@@ -38,6 +39,10 @@ function Login() {
     const [email, setEmail] = useState('')
     const [passwords, setPasswords] = useState('')
 
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleToggle = () => {
         if (type === 'password') {
@@ -80,16 +85,10 @@ function Login() {
         })
             .then((response) => {
                 console.log("login success");
-                // console.log(response.data.result.data);
-                // const userData = {
-                //     token: response.data.result.data.token,
-                //     role: response.data.result.data.role,
-                // }
                 localStorage.setItem('token', (response.data.result.data.token));
                 localStorage.setItem('role', (response.data.result.data.role));
                 SuccessMessage()
                 setTimeout(() => navigate('/'), 5000);
-
             })
             .catch((err) => {
                 ErrorMessage()

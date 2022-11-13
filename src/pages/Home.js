@@ -33,7 +33,9 @@ import bintang from "../asset/bintang.png";
 import rounded from "../asset/rounded.png";
 
 
-
+import axios from "axios"
+import { connect } from 'react-redux';
+import { setAddress } from '../redux/actions/action'
 
 
 
@@ -46,6 +48,17 @@ class Home extends Component {
         navnotLogin: <NavbarnotLogin />,
     };
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+        axios.get(`${process.env.REACT_APP_BACKEND_HOST}coffee/users/UserID`, {
+            headers: {
+                "x-access-token": localStorage.getItem('token'),
+            },
+        }).then((response) => {
+            this.props.setAddress("address", response.data.result[0].address)
+            this.props.setAddress("phone_number", response.data.result[0].phone_number)
+        });
+    }
 
     navtype = () => {
         if (localStorage.getItem('token')) {
@@ -332,4 +345,15 @@ class Home extends Component {
 }
 
 
-export default Home;
+const mapDispatchToProps = {
+    setAddress,
+}
+
+const mapStateToProps = (reduxState) => {
+    console.log(reduxState);
+    return {
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -37,6 +37,9 @@ class Product extends Component {
         non_coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=non_coffee&page=1&limit=12`,
         food: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=foods&page=1&limit=12`,
         addons: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=addon&page=1&limit=12`,
+        sort: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?sorting=cheapest`,
+        currentPage: 1,
+        totalPage: 1,
         navLogin: <Navbar />,
         navnotLogin: <NavbarnotLogin />,
         searchParams: {}
@@ -46,6 +49,7 @@ class Product extends Component {
     componentDidMount() {
         axios.get(this.state.favorite)
             .then((res) => {
+                console.log(res.data.result);
                 this.setState({ product: res.data.result.data })
             })
             .catch((err) => console.log(err));
@@ -61,7 +65,6 @@ class Product extends Component {
             .get(this.state.favorite)
             .then((res) => this.setState({ product: res.data.result.data }))
             .catch((err) => console.log(err));
-
     };
     Coffee = () => {
         axios
@@ -85,6 +88,13 @@ class Product extends Component {
         axios
             .get(this.state.addons)
             .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
+    };
+    onSort = (e) => {
+        console.log(e.target.value);
+        axios
+            .get(`${this.state.sort}?sorting=${e.target.value}`)
+            .then((res) => this.setState({ products: res.data.result.data }))
             .catch((err) => console.log(err));
     };
 
@@ -183,6 +193,16 @@ class Product extends Component {
                                             })
                                     }}>Add-on</p></span>
                                 </div>
+                                <div className={`d-flex justify-content-end w-100 container`}>
+                                    <select className={`form-select form-select-sm ${styles["sort"]}`} aria-label=".form-select-sm example" onChange={this.onSort}>
+                                        <option selected>Sorting</option>
+                                        <option value="cheapest">cheapest</option>
+                                        <option value="expensive">expensive</option>
+                                        <option value="newest">newest</option>
+                                        <option value="lates">lates</option>
+                                        <option value="favorite">favorite</option>
+                                    </select>
+                                </div>
                                 <div className={`row ${styles["list-content"]} d-flex justify-content-start`}>
                                     {this.state.product.map((e, key) => (
                                         <CardProduct
@@ -196,9 +216,14 @@ class Product extends Component {
                                     ))}
 
                                 </div>
-                                <div className="ms-5 mt-3 mb-4">
+                                <div className="ms-5 mt-5 mb-3">
                                     <p className={styles["note-price"]}>*the price has been cutted by discount appears</p>
                                 </div>
+                                <div className="container d-flex justify-content-end mb-5">
+                                    <button className={`${styles["button-prev"]}`}>Prev</button>
+                                    <button className={`${styles["button-next"]}`}>Next</button>
+                                </div>
+
 
                             </div>
                         </div>

@@ -7,12 +7,15 @@ import logger from "redux-logger";
 import rpm from "redux-promise-middleware";
 
 import counterReducer from "./reducers/counter";
-import isLoginReducer from "./reducers/isLogin"
+import isLoginReducer from "./reducers/isLogin";
+import { getCO, getdisplay } from "./reducers/CO";
 
 const middleware = applyMiddleware(rpm, logger);
 const reducers = combineReducers({
     counter: counterReducer,
     islogin: isLoginReducer,
+    checkout: getCO,
+    getdis: getdisplay
 });
 const store = createStore(reducers, middleware);
 

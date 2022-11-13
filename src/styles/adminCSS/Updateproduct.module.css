@@ -8,6 +8,7 @@
     line-height: 24px;
     color: #4F5665;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .step-two {
@@ -202,6 +203,18 @@ input[type="file"] {
     border: none;
     width: 100%;
     height: 50px;
+}
+
+
+.input-stock-add-admin {
+    width: 80%;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 20px;
+}
+
+.default-bg-set {
+    background-color: #b6b6b6;
 }
 
 

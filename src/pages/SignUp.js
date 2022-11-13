@@ -34,6 +34,41 @@ class SignUp extends Component {
         icon: eye,
     }
 
+    /* ====================== */
+
+
+    // componentDidMount => kondisi ketika halaman di refresh maka akan di jalan isi dalemannya
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+
+    // handlingRegister => logic register
+    handlingRegister = (e) => {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_BACKEND_HOST}coffee/users`, {
+            email: this.state.email,
+            passwords: this.state.passwords,
+            phone_number: this.state.phone_number,
+        })
+            .then((response) => {
+                console.log(response.data.result);
+                this.SuccessMessage() //menampilkan notifikasi berhasil
+                setTimeout(() => this.props.navigate("/login"), 3000); // memberikan settimeout dan mentalin ke login
+            })
+            .catch((err) => {
+                // console.log(err.response.data.msg);
+                toast.error(err.response.data.msg, {    // menampilkan notifikasi error
+                    position: toast.POSITION.TOP_RIGHT
+                });
+
+            });
+        this.setState({ email: "", passwords: "", phone_number: "" });  // state dikembalikan ke kondisi string kosong
+    }
+
+
+
+    // handleToggle => fungsi untuk membuat handle show password buka tutup mata
     handleToggle = () => {
         if (this.state.type === 'password') {
             this.setState({ icon: eye });
@@ -44,51 +79,37 @@ class SignUp extends Component {
         }
     }
 
+
+
+    // handleEmail, handlePasswords, handlePhone_number => untuk mendapatkan value dari inputan
     handleEmail = (e) => {
         this.setState({
             email: e.target.value,
-            data: console.log(e.target.value),
+            // debug: console.log(e.target.value),
         });
     }
     handlePasswords = (e) => {
         this.setState({
             passwords: e.target.value,
-            data: console.log(e.target.value),
+            // debug: console.log(e.target.value),
         });
     }
     handlePhone_number = (e) => {
         this.setState({
             phone_number: e.target.value,
-            data: console.log(e.target.value),
+            // debug: console.log(e.target.value),
         });
     }
+
+
+    // SuccessMessage => toast, menampilkan popUP notifikasi jika berhasil
     SuccessMessage = () => {
         toast.success('Register Success !', {
             position: toast.POSITION.TOP_RIGHT
         });
     };
 
-    handlingRegister = (e) => {
-        e.preventDefault();
-        axios.post(`${process.env.REACT_APP_BACKEND_HOST}coffee/users`, {
-            email: this.state.email,
-            passwords: this.state.passwords,
-            phone_number: this.state.phone_number,
-        })
-            .then((response) => {
-                console.log(response.data.result);
-                this.SuccessMessage()
-                setTimeout(() => this.props.navigate("/login"), 3000);
-            })
-            .catch((err) => {
-                // console.log(err.response.data.msg);
-                toast.error(err.response.data.msg, {
-                    position: toast.POSITION.TOP_RIGHT
-                });
 
-            });
-        this.setState({ email: "", passwords: "", phone_number: "" });
-    }
 
 
     render() {

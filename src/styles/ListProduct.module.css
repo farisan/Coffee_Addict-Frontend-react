@@ -7,25 +7,23 @@
     align-items: center;
     box-shadow: 0 0 3px #9F9F9F;
     box-shadow: 0px 30px 60px 0px #3939391A;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
+    
 }
 
 .list-product-image {
     top: -57px;
-    left: 10px;
-    width: 136px;
+    left: 12px;
+    width: 120px;
     position: absolute;
-    height: 135px;
+    height: 120px;
     overflow: hidden;
     border-radius: 70px;
-    -webkit-border-radius: 70px;
-    -webkit-border-radius: 70px;
-    -moz-border-radius: 70px;
-    -ms-border-radius: 70px;
-    -o-border-radius: 70px;
+    
+}
+
+.content-product:hover{
+    transform: scale(1.1);
+    border: 1px solid #FFBA33;
 }
 
 .label-promo {
@@ -43,10 +41,7 @@
     border-radius: 15px;
     text-align: center;
     align-items: center;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
+    
 }
 
 .title {
@@ -55,10 +50,11 @@
     /* padding-right: 100px; */
     font-family: "Poppins";
     font-weight: 900;
-    font-size: 22px;
-    line-height: 23px;
+    font-size: 20px;
+    line-height: 25px;
     /* margin-left: 90%; */
     height: 80px;
+    text-align: center;
 }
 
 .price {

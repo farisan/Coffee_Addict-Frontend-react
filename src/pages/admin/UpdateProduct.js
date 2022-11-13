@@ -31,9 +31,18 @@ class UpdateProduct extends Component {
         price: "",
         description: "",
         stock: "",
+        category: "",
+        image: "",
+        imagePreview: "",
+        display: "https://res.cloudinary.com/dx7cvqczn/image/upload/v1668147344/coffee_addict/pic_default_product.png",
     };
 
     componentDidMount() {
+        this.getProduct()
+        window.scrollTo(0, 0)
+    }
+
+    getProduct() {
         Axios.get(this.state.url)
             .then((response) => {
                 console.log(response.data.result.data[0].image);
@@ -49,6 +58,23 @@ class UpdateProduct extends Component {
             .catch((err) => { console.log(err); })
     }
 
+    selectImage = () => {
+        if (!this.state.image) return this.state.display
+        return this.state.image
+    }
+
+    // handleFile => memndapatkan value inputan dari gambar yang telah di choose file
+    handleFile = (e) => {
+        // e.preventDefault();
+        let file = e.target.files[0]
+        let preview = URL.createObjectURL(e.target.files[0])
+        // console.log(file);
+        this.setState({ image: preview })
+        this.setState({ imagePreview: file })
+        // console.log(e.target.files[0]);
+        // console.log(URL.createObjectURL(e.target.files[0]));
+    }
+
     navtype = () => {
         if (localStorage.getItem('token')) {
             if (localStorage.getItem("role") === "user") {
@@ -62,17 +88,23 @@ class UpdateProduct extends Component {
     }
 
     valueDescription = (e) => {
-        this.setState({ description: e.target.value });
+        this.setState({ description: e.target.value, debug: console.log(e.target.value) });
     };
     valuePrice = (e) => {
-        this.setState({ price: e.target.value });
+        this.setState({ price: e.target.value, debug: console.log(e.target.value) });
     };
     valueNameproduct = (e) => {
-        this.setState({ name: e.target.value });
+        this.setState({ name: e.target.value, debug: console.log(e.target.value) });
     };
-    // valueStock = (e) => {
-    //     this.setState({ stock: e.target.value });
-    // };
+    valueStock = (e) => {
+        this.setState({ stock: e.target.value, debug: console.log(e.target.value) })
+    }
+    valueSize = (e) => {
+        this.setState({ size: e.target.value, debug: console.log(e.target.value) })
+    }
+    valueCategory = (e) => {
+        this.setState({ category: e.target.value, debug: console.log(e.target.value) })
+    }
 
 
     SuccessMessage = () => {
@@ -82,32 +114,61 @@ class UpdateProduct extends Component {
     };
 
 
-
-    submitSavechangeProduct = async (e) => {
-        e.preventDefault();
-        // console.log(this.state.description);
-        try {
-            const getToken = localStorage.getItem('token')
-            Axios.patch(this.state.urlpatchProd, {
-                name: this.state.name,
-                image: this.state.image,
-                description: this.state.description,
-                size: this.state.size,
-                price: this.state.price,
-                stock: this.state.stock
-            }, {
-                headers: {
-                    "x-access-token": getToken,
-                }
+    submitSavechangeProduct = () => {
+        const getToken = localStorage.getItem('token')
+        let formdata = new FormData()
+        // if (this.state.image) formdata.append('image', this.state.image)
+        if (this.state.imagePreview) formdata.append('image', this.state.imagePreview)
+        if (this.state.name) formdata.append('name', this.state.name)
+        if (this.state.price) formdata.append('price', this.state.price)
+        if (this.state.description) formdata.append('description', this.state.description)
+        if (this.state.size) formdata.append('size', this.state.size)
+        if (this.state.stock) formdata.append('stock', this.state.stock)
+        if (this.state.category) formdata.append('category', this.state.category)
+        Axios.patch(this.state.urlpatchProd, formdata, {
+            headers: {
+                "x-access-token": getToken,
+            },
+        })
+            .then((response) => {
+                this.SuccessMessage()
+                setTimeout(() => {
+                    this.props.navigate("/handlingproduct")
+                }, 1000)
+                console.log(response)
             })
-            // alert("success change product")
-            this.SuccessMessage()
-            setTimeout(() => this.props.navigate('/handlingproduct'), 3000);
-        } catch (err) {
-            alert("input error")
-            console.log(err);
-        }
+            .catch((err) => {
+                console.log(err)
+                toast.error('Error Input !', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            })
     }
+    // submitSavechangeProduct =(e) => {
+    //     e.preventDefault();
+    //     // console.log(this.state.description);
+    //     try {
+    //         const getToken = localStorage.getItem('token')
+    //         Axios.patch(this.state.urlpatchProd, {
+    //             name: this.state.name,
+    //             image: this.state.image,
+    //             description: this.state.description,
+    //             size: this.state.size,
+    //             price: this.state.price,
+    //             stock: this.state.stock
+    //         }, {
+    //             headers: {
+    //                 "x-access-token": getToken,
+    //             }
+    //         })
+    //         // alert("success change product")
+    //         this.SuccessMessage()
+    //         setTimeout(() => this.props.navigate('/handlingproduct'), 3000);
+    //     } catch (err) {
+    //         alert("input error")
+    //         console.log(err);
+    //     }
+    // }
 
 
 
@@ -116,7 +177,7 @@ class UpdateProduct extends Component {
     }
 
     render() {
-        console.log(this.state.stock);
+        console.log(this.state.image);
         return (
             <>
                 <ToastContainer />
@@ -140,12 +201,16 @@ class UpdateProduct extends Component {
                         <div className='row gap-2 d-flex justify-content-between'>
                             <section className='col-lg-5 col-md-12 col-sm-12 d-flex flex-column align-items-center '>
                                 <div className='pt-5'>
-                                    <img className='rounded-circle' src={this.state.image} alt='img_product' width="250px" height="250px"></img>
+                                    <img className='rounded-circle' src={this.selectImage()} alt='img_product' width="250px" height="250px"></img>
                                 </div>
                                 <button className={`${styles["change-profile"]} mt-5 rounded-5`}>Save Change</button>
                                 <div className={`${styles["profile-image"]} text-center rounded-5 mt-3 mb-5`}>
                                     <label for="img-profile">Choose Photo</label>
-                                    <input type="file" name="" id="img-profile" />
+                                    <input
+                                        type="file"
+                                        name="file"
+                                        id="img-profile"
+                                        onChange={(e) => this.handleFile(e)} />
                                 </div>
                                 <div className={`${styles[`delivery-hour`]}`}>
                                     <p >Delivery Hour :</p>
@@ -174,14 +239,22 @@ class UpdateProduct extends Component {
                                     <p >Input stock :</p>
                                 </div>
                                 <div className='mt-3 w-100 d-flex align-item-center justify-content-center mb-5'>
-                                    <select className={`${styles["dropdown-hour"]} ps-3 `}>
+                                    {/* <select className={`${styles["dropdown-hour"]} ps-3 `}>
                                         <option selected>Input stock</option>
                                         <option value="10">10 stock</option>
                                         <option value="15">15 stock</option>
                                         <option value="20">20 stock</option>
                                         <option value="25">25 stock</option>
                                         <option value="30">30 stock</option>
-                                    </select>
+                                    </select> */}
+                                    <input className={`${styles["input-stock-add-admin"]}`}
+                                        type="text"
+                                        name='stock'
+                                        id='stock'
+                                        value={this.state.stock}
+                                        onChange={this.valueStock}
+                                        placeholder="Input stock product"
+                                    />
                                 </div>
                             </section>
 
@@ -217,18 +290,43 @@ class UpdateProduct extends Component {
                                     <p className={styles['input-product-desc']}>Click size you want to use for this product</p>
                                 </div>
                                 <div className={`${styles.size} d-flex justify-content-start text-center mt-3`}>
-                                    <button className=" rounded-circle">R</button>
-                                    <button className=" rounded-circle">L</button>
-                                    <button className=" rounded-circle">XL</button>
+                                    <button className=" rounded-circle"
+                                        value='M'
+                                        onClick={this.valueSize}
+
+                                    >M</button>
+                                    <button className=" rounded-circle"
+                                        value='L'
+                                        onClick={this.valueSize}
+
+                                    >L</button>
+                                    <button className=" rounded-circle"
+                                        value='XL'
+                                        onClick={this.valueSize}
+
+                                    >XL</button>
                                 </div>
                                 <div className={`${styles[`input-size`]} mt-5`}>
-                                    <p className={styles['input-product-size']}>Input delivery methods :</p>
+                                    <p className={styles['input-product-size']}>Category product :</p>
                                     <p className={styles['input-product-desc']}>Click methods you want to use for this product</p>
                                 </div>
                                 <div className={`${styles.method} d-flex justify-content-start text-center mt-3`}>
-                                    <button className=" rounded-3">Home delivery</button>
-                                    <button className=" rounded-3">Dine in</button>
-                                    <button className=" rounded-3">Take away</button>
+                                    <button className=" rounded-3"
+                                        value='coffee'
+                                        onClick={this.valueCategory}
+                                    >Coffee</button>
+                                    <button className=" rounded-3"
+                                        value='non coffee'
+                                        onClick={this.valueCategory}
+                                    >Non Coffee</button>
+                                    <button className=" rounded-3"
+                                        value='foods'
+                                        onClick={this.valueCategory}
+                                    >Foods</button>
+                                    <button className=" rounded-3"
+                                        value='addon'
+                                        onClick={this.valueCategory}
+                                    >Addon</button>
                                 </div>
                                 <button className={`${styles["save-product"]} mt-5 rounded-5`} onClick={this.submitSavechangeProduct}>Save Change</button>
                                 <button className={`${styles["cancel-product"]} mt-3 rounded-5`}>Cancel</button>

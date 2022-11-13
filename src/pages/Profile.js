@@ -4,6 +4,12 @@ import Axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//  import redux
+import { setAddress } from "../redux/actions/action"
+
+// import react bootstrap
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 // import css
 import styles from "../styles/Profile.module.css"
@@ -19,6 +25,7 @@ import withNavigate from '../helpers/withNavigate';
 
 // import image
 import icon_pencil from "../asset/icon_pensil.png"
+import { connect } from 'react-redux';
 
 
 
@@ -43,44 +50,32 @@ class Profile extends Component {
         navLogin: <Navbar />,
         navAdmin: <NavbarAdmin />,
         navnotLogin: <NavbarnotLogin />,
+        show: false,
         // file: null,
     }
 
+
+    /* ================================= */
+
+
+    // ComponentDidMount => ketika halaman di refresh maka akan menampilkan data di dalamnya
     componentDidMount() {
+        window.scrollTo(0, 0)
         this.getData()
     }
 
-    // componentDidUpdate() {
-    //     if (this.state.isLoading) {
-    //         this.getData()
-    //         this.setState({ isLoading: false })
-    //     }
-    // }
 
-    selectImage = () => {
-        if (!this.state.image) return this.state.display
-        return URL.createObjectURL(this.state.image)
-    }
-
-    handleEditDate = () => {
-        this.setState({ isEdit: false })
-    }
-
-    handleFile = (e) => {
-        let file = e.target.files[0]
-        this.setState({ image: file })
-        // console.log(e.target.files[0]);
-        // console.log(URL.createObjectURL(e.target.files[0]));
-    }
-
+    // getData => untuk mendapatkan data-data dari database
+    // Axios.method(url, body, header)
     getData = () => {
         const getToken = localStorage.getItem('token')
-        // console.log(getToken);
         Axios.get(this.state.url, {
             headers: {
                 "x-access-token": getToken,
             },
         }).then((response) => {
+            this.props.setAddress("address", response.data.result[0].address)
+            this.props.setAddress("phone_number", response.data.result[0].phone_number)
             this.setState({
                 // debug: console.log(response.data.result[0].gender),
                 display: response.data.result[0].image,
@@ -94,10 +89,77 @@ class Profile extends Component {
                 lastname: response.data.result[0].lastname,
                 birthday: response.data.result[0].birthday,
                 gender: response.data.result[0].gender,
-            }, () => {
-                console.log(this.state);
             });
         });
+    }
+
+
+
+    // editData => fungsi untuk memasukan data kedalam database ketika di click button save change
+    editData = (e) => {
+        e.preventDefault();
+        let formdata = new FormData()
+        if (this.state.image) formdata.append('image', this.state.image)
+        if (this.state.address) formdata.append('address', this.state.address)
+        if (this.state.displayname) formdata.append('displayname', this.state.displayname)
+        if (this.state.firstname) formdata.append('firstname', this.state.firstname)
+        if (this.state.lastname) formdata.append('lastname', this.state.lastname)
+        if (this.state.gender) formdata.append('gender', this.state.gender)
+        if (this.state.birthday) formdata.append('birthday', this.state.birthday)
+        // for (var pair of formdata.entries()) {
+        //     console.log(pair[0] + " - " + pair[1]);
+        // }
+        const getToken = localStorage.getItem('token')
+        Axios.patch(this.state.urlpatch, formdata, {
+            headers: {
+                "x-access-token": getToken
+            }
+        })
+            .then(() => {
+                this.SuccessMessage()
+                this.setState({ isLoading: false, isEdit: true })
+                window.location.reload();
+
+            })
+            .catch((err) => {
+                toast.error(err, {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            })
+    }
+
+
+    // handleLogout => untuk menghapus token dan role di localstorage serta menghapus di redis BE
+    handleLogout = () => {
+        const getToken = localStorage.getItem('token')
+        Axios.delete(this.state.urlLogout, {
+            headers: {
+                "x-access-token": getToken,
+            },
+        })
+            .then(console.log("success logout"))
+            .catch((err) => console.log(err))
+    }
+
+
+    // selectImage => untuk preview image ketika abis di choose file
+    selectImage = () => {
+        if (!this.state.image) return this.state.display
+        return URL.createObjectURL(this.state.image)
+    }
+
+    // handleFile => memndapatkan value inputan dari gambar yang telah di choose file
+    handleFile = (e) => {
+        let file = e.target.files[0]
+        this.setState({ image: file })
+        // console.log(e.target.files[0]);
+        // console.log(URL.createObjectURL(e.target.files[0]));
+    }
+
+
+    // handleEditDate => gambar image pensil ketika di klik maka akan membuka inputan yang di disable
+    handleEditDate = () => {
+        this.setState({ isEdit: false })
     }
 
 
@@ -112,7 +174,7 @@ class Profile extends Component {
         this.setState({ phone_number: e.target.value });
     };
     valueBirthday = (e) => {
-        this.setState({ birthday: e.target.value });
+        this.setState({ birthday: e.target.value, debug: e.target.value });
     };
     valueDisplayname = (e) => {
         this.setState({ displayname: e.target.value });
@@ -127,11 +189,15 @@ class Profile extends Component {
         this.setState({ gender: e.target.value });
     };
 
-    handleCancel = (e) => {
-        e.preventDefault()
+
+    // handleCancel => kondisi ketika button cancel di klik maka akan mengembalikan inputan awal
+    handleCancel = () => {
         this.getData()
+        this.setState({ isLoading: false, isEdit: true })
     }
 
+
+    // navtype => untuk menampilkan navbar sesuai role ketika login
     navtype = () => {
         if (localStorage.getItem('token')) {
             if (localStorage.getItem("role") === "user") {
@@ -144,18 +210,9 @@ class Profile extends Component {
         }
     }
 
-    handleLogout = () => {
-        const getToken = localStorage.getItem('token')
-        Axios.delete(this.state.urlLogout, {
-            headers: {
-                "x-access-token": getToken,
-            },
-        })
-            .then(console.log("success logout"))
-            .catch((err) => console.log(err))
-    }
 
 
+    // SuccessMessage, LogoutMessage => notifikasi sukses dan gagal
     SuccessMessage = () => {
         toast.success('Data Save Change !', {
             position: toast.POSITION.TOP_RIGHT
@@ -168,42 +225,10 @@ class Profile extends Component {
     };
 
 
-    // memasukan data kedatabase
-    submitEditprofile = (e) => {
-        e.preventDefault();
-        // console.log(this.state.address);
-        try {
-            let formdata = new FormData()
-            let images = this.state.image
-            if (images) formdata.append('image', images)
-            if (this.state.address) formdata.append('address', this.state.address)
-            if (this.state.displayname) formdata.append('displayname', this.state.displayname)
-            if (this.state.firstname) formdata.append('firstname', this.state.firstname)
-            if (this.state.lastname) formdata.append('lastname', this.state.lastname)
-            if (this.state.gender) formdata.append('gender', this.state.gender)
-            if (this.state.birthday) formdata.append('birthday', this.state.birthday)
-            const getToken = localStorage.getItem('token')
-            Axios.patch(this.state.urlpatch,
-                formdata
-                , {
-                    headers: {
-                        "x-access-token": getToken,
-                    }
-                }).then(() => {
-                    this.SuccessMessage()
-                    this.setState({ isLoading: false, isEdit: true })
-                })
-            // setTimeout(() => this.props.navigate('/profile'), 5000);
-        } catch (err) {
-            // alert("input error")
-            // console.log(err);
-            toast.error(err, {
-                position: toast.POSITION.TOP_RIGHT
-            });
-        }
-    }
 
-
+    // Show Modals
+    handleClose = () => this.setState({ show: false });
+    handleShow = () => this.setState({ show: true });
 
 
 
@@ -213,7 +238,6 @@ class Profile extends Component {
         let {
             displayname,
             email,
-            image,
             phone_number,
             address,
             firstname,
@@ -221,7 +245,7 @@ class Profile extends Component {
             birthday,
             gender,
         } = this.state;
-        console.log(image);
+        // console.log(image);
 
         return (
             <>
@@ -255,21 +279,15 @@ class Profile extends Component {
                             <button className={`${styles["remove-profile"]} mt-3 rounded-5`}>Remove Photo</button>
                             <button className={`${styles["editpwd-profile"]} mt-5 rounded-5`}>Edit Password</button>
                             <span className={`${styles["save-change-profile"]} text-center mt-5 fs-4`}>Do you want to save the change?</span>
-                            <button className={`${styles["change-profile"]} mt-5 rounded-5`} onClick={this.submitEditprofile}>Save Change</button>
+                            <button className={`${styles["change-profile"]} mt-5 rounded-5`} onClick={this.editData}>Save Change</button>
                             {/* <button className={`${styles["cancel-profile"]} mt-3 rounded-5`} onClick={this.handleCancel}>Cancel</button> */}
                             <button className={`${styles["cancel-profile"]} mt-3 rounded-5`} onClick={(e) => {
                                 e.preventDefault()
-
+                                this.handleCancel()
                             }}>Cancel</button>
                             <button className={`${styles["editpwd-profile"]} mt-5 rounded-5`} onClick={(e) => {
                                 e.preventDefault()
-                                this.handleLogout()
-                                localStorage.removeItem('role')
-                                localStorage.removeItem('token')
-                                this.LogoutMessage()
-                                setTimeout(() => {
-                                    this.props.navigate("/login");
-                                }, 2000);
+                                this.handleShow()
                             }}
                             >Logout</button>
                         </div>
@@ -346,9 +364,9 @@ class Profile extends Component {
                                     <input type={this.state.isEdit ? "text" : "date"}
                                         name="birthday"
                                         id="birthday"
-                                        // value={birthday}
+                                        value={birthday === null ? null : birthday.slice(0, 10).split("-").join("/").split("/").join("-")}
                                         onChange={this.valueBirthday}
-                                        placeholder={birthday === null ? null : birthday.slice(0, 10).split("-").reverse().join("/")}
+                                        placeholder="Input Birthday"
                                         disabled={this.state.isEdit} />
                                 </div>
                             </div>
@@ -407,10 +425,57 @@ class Profile extends Component {
                 {/* <!-- End Container Full Center --> */}
 
                 <Footer></Footer>
+                <Modal
+                    show={this.state.show}
+                    onHide={this.handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>confirmation😊</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>are you sure you want to log out?</Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            variant="secondary"
+                            className="fw-bold text-bg-secondary text-white"
+                            onClick={this.handleClose}
+                        >
+                            No ❌
+                        </Button>
+                        <Button
+                            variant="success"
+                            className="fw-bold text-bg-success text-white"
+                            onClick={() => {
+                                this.handleLogout()
+                                localStorage.removeItem('role')
+                                localStorage.removeItem('token')
+                                this.LogoutMessage()
+                                setTimeout(() => {
+                                    this.props.navigate("/login");
+                                }, 2000);
+                            }}
+                        >
+                            Yes ✅
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </>
         )
     }
 }
 
+const mapDispatchToProps = {
+    setAddress,
+}
 
-export default withNavigate(Profile);
+const mapStateToProps = (reduxState) => {
+    console.log(reduxState);
+    return {
+
+    };
+};
+
+
+// export default withNavigate(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigate(Profile));

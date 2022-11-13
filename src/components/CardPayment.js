@@ -4,8 +4,9 @@ import React, { Component } from 'react'
 import styles from "../styles/Payment.module.css"
 
 import payment_image_1 from "../asset/payment_image_1.png";
+import { connect } from 'react-redux';
 
-export default class CardPayment extends Component {
+class CardPayment extends Component {
     render() {
         // const {name_product, qty, size, image,} =this.props
         return (
@@ -15,7 +16,7 @@ export default class CardPayment extends Component {
                     <img src={payment_image_1} alt='Payment1' width="100px" height="100px"></img>
                     <div className={styles['payment-center']}>
                         <p>Hazelnut Latte</p>
-                        <p>x1</p>
+                        <p>{this.props.counter}</p>
                         <p>Reguler</p>
                     </div>
                     <div className={styles['payment-idr']}>
@@ -26,3 +27,11 @@ export default class CardPayment extends Component {
         )
     }
 }
+const mapStateToProps = (reduxState) => {
+    console.log(reduxState);
+    return {
+        counter: reduxState.counter.number
+    };
+};
+
+export default connect(mapStateToProps)(CardPayment)
