@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-
+import Axios from 'axios'
 import { Link } from 'react-router-dom'
+
+
+import withParams from "../../helpers/withRouteParams";
 
 // import component
 import Navbar from "../../components/Navbar"
@@ -23,7 +26,36 @@ class UpdatePromo extends Component {
         navLogin: <Navbar />,
         navAdmin: <NavbarAdmin />,
         navnotLogin: <NavbarnotLogin />,
+        urlGet: `${process.env.REACT_APP_BACKEND_HOST}coffee/promo/promo/${this.props.params.id}`,
+        image: "",
+        name: "",
+        price: "",
+        description: "",
+        size: "",
+        discount: "",
+        code: "",
     };
+
+    componentDidMount() {
+        this.getPromo()
+    }
+
+    getPromo = () => {
+        Axios.get(this.state.urlGet)
+            .then((response) => {
+                console.log(response);
+                this.setState({
+                    image: response.data.result.data[0].image,
+                    name: response.data.result.data[0].name,
+                    price: response.data.result.data[0].price,
+                    description: response.data.result.data[0].description,
+                    size: response.data.result.data[0].size,
+                    discount: response.data.result.data[0].discount,
+                    code: response.data.result.data[0].code,
+                })
+            })
+            .catch((err) => console.log(err))
+    }
 
     navtype = () => {
         if (localStorage.getItem('token')) {
@@ -72,7 +104,7 @@ class UpdatePromo extends Component {
                                     <p >Enter the discount :</p>
                                 </div>
                                 <div className='mt-3 w-100 d-flex align-item-center justify-content-center'>
-                                    <select className={` ${styles["dropdown-hour"]} ps-3`} >
+                                    <select className={` ${styles["dropdown-hour"]} ps-3`}>
                                         <option selected>Input discount</option>
                                         <option value="1">1 hour</option>
                                         <option value="2">2 hour</option>
@@ -108,43 +140,62 @@ class UpdatePromo extends Component {
                                     <p >Input coupon code :</p>
                                 </div>
                                 <div className='mt-3 w-100 d-flex align-item-center justify-content-center mb-5'>
-                                    <select className={`${styles["dropdown-hour"]} ps-3 `}>
-                                        <option selected>Input stock</option>
-                                        <option value="1">1 hour</option>
-                                        <option value="2">2 hour</option>
-                                        <option value="3">3 hour</option>
-                                        <option value="3">4 hour</option>
-                                        <option value="3">5  hour</option>
-                                    </select>
+                                    <input className={`${styles["input-stock-add-admin"]}`}
+                                        type="text"
+                                        name=''
+                                        id=''
+                                        // value={}
+                                        // onChange={}
+                                        placeholder="Input Code Promo"
+                                    />
                                 </div>
                             </section>
 
                             <section className='col-lg-6 col-md-12 col-sm-12 pt-5 '>
                                 <div className={`${styles["data-form"]} d-flex flex-column w-100`}>
                                     <label for="">Name :</label>
-                                    <input type="email" name="" id="" placeholder="Type product name min. 50 characters" />
+                                    <input
+                                        type="email"
+                                        name=""
+                                        id=""
+                                        value={this.state.name}
+                                        disabled
+                                        placeholder="Type product name min. 50 characters" />
                                     <label for="">Price :</label>
-                                    <input type="number" name="" id="" placeholder="Type the price" />
+                                    <input
+                                        type="number"
+                                        name=""
+                                        id=""
+                                        value={this.state.price}
+                                        disabled
+                                        placeholder="Type the price" />
                                     <label for="">Description :</label>
-                                    <input type="text" name="" id="" placeholder="Describe your product min. 150 characters" />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        value={this.state.description}
+                                        disabled
+                                        placeholder="Describe your product min. 150 characters" />
                                 </div>
                                 <div className={`${styles[`input-size`]} mt-5`}>
                                     <p className={styles['input-product-size']}>Input product size :</p>
                                     <p className={styles['input-product-desc']}>Click size you want to use for this product</p>
                                 </div>
                                 <div className={`${styles.size} d-flex justify-content-start text-center mt-3`}>
-                                    <button className=" rounded-circle">R</button>
-                                    <button className=" rounded-circle">L</button>
-                                    <button className=" rounded-circle">XL</button>
+                                    <button className=" rounded-circle" disabled>R</button>
+                                    <button className=" rounded-circle" disabled>L</button>
+                                    <button className=" rounded-circle" disabled>XL</button>
                                 </div>
                                 <div className={`${styles[`input-size`]} mt-5`}>
-                                    <p className={styles['input-product-size']}>Input delivery methods :</p>
+                                    <p className={styles['input-product-size']}>Category product :</p>
                                     <p className={styles['input-product-desc']}>Click methods you want to use for this product</p>
                                 </div>
                                 <div className={`${styles.method} d-flex justify-content-start text-center mt-3`}>
-                                    <button className=" rounded-3">Home delivery</button>
-                                    <button className=" rounded-3">Dine in</button>
-                                    <button className=" rounded-3">Take away</button>
+                                    <button className=" rounded-3" disabled>Coffee</button>
+                                    <button className=" rounded-3" disabled>Non Coffee</button>
+                                    <button className=" rounded-3" disabled>Foods</button>
+                                    <button className=" rounded-3" disabled>Addon</button>
                                 </div>
                                 <button className={`${styles["save-product"]} rounded-5`}>Save Change</button>
                                 <button className={`${styles["cancel-product"]} mt-3 rounded-5`}>Cancel</button>
@@ -163,4 +214,4 @@ class UpdatePromo extends Component {
     }
 }
 
-export default UpdatePromo
+export default withParams(UpdatePromo)

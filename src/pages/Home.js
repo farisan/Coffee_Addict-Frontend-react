@@ -35,7 +35,7 @@ import rounded from "../asset/rounded.png";
 
 import axios from "axios"
 import { connect } from 'react-redux';
-import { setAddress } from '../redux/actions/action'
+import { setDataProfile } from '../redux/actions/action'
 
 
 
@@ -55,8 +55,9 @@ class Home extends Component {
                 "x-access-token": localStorage.getItem('token'),
             },
         }).then((response) => {
-            this.props.setAddress("address", response.data.result[0].address)
-            this.props.setAddress("phone_number", response.data.result[0].phone_number)
+            this.props.setDataProfile("address", response.data.result[0].address)
+            this.props.setDataProfile("phone_number", response.data.result[0].phone_number)
+            this.props.setDataProfile("displayname", response.data.result[0].displayname)
         });
     }
 
@@ -346,7 +347,7 @@ class Home extends Component {
 
 
 const mapDispatchToProps = {
-    setAddress,
+    setDataProfile,
 }
 
 const mapStateToProps = (reduxState) => {

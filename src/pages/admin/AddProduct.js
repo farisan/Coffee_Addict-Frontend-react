@@ -243,7 +243,7 @@ class AddProduct extends Component {
                                         <option value="30">30 stock</option>
                                     </select> */}
                                     <input className={`${styles["input-stock-add-admin"]}`}
-                                        type="text"
+                                        type="number"
                                         name='stock'
                                         id='stock'
                                         value={this.state.stock}

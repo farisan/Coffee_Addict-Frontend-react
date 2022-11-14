@@ -68,7 +68,7 @@ const router = createBrowserRouter([
             </PrivateElement>
     },
     {
-        path: "/updatepromo", element:
+        path: "/handlingproduct/updatepromo/:id", element:
             <PrivateElement allowedRoles={["admin"]}>
                 <Updatepromo />
             </PrivateElement>

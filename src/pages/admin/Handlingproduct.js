@@ -11,7 +11,7 @@ import Navbar from "../../components/Navbar"
 import NavbarAdmin from "../../components/NavbarAdmin"
 import NavbarnotLogin from "../../components/Navbar-notLogin"
 import Footer from "../../components/Footer"
-import CardPromo from "../../components/CardPromo"
+import CardPromo from "../../components/CardPromoAdmin"
 import Cardproduct from "../../components/CardProductAdmin"
 import titlebar from "../../utility/WebDinamis"
 
@@ -23,11 +23,13 @@ class Handlingproduct extends Component {
 
     state = {
         product: [],
+        promos: [],
         favorite: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?sorting=favorite&page=1&limit=12`,
         coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=coffee&page=1&limit=12`,
         non_coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=non_coffee&page=1&limit=12`,
         food: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=foods&page=1&limit=12`,
         addons: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=addon&page=1&limit=12`,
+        getPromo: `${process.env.REACT_APP_BACKEND_HOST}coffee/promo/Getpromo`,
         navLogin: <Navbar />,
         navAdmin: <NavbarAdmin />,
         navnotLogin: <NavbarnotLogin />,
@@ -36,6 +38,13 @@ class Handlingproduct extends Component {
         axios.get(this.state.favorite)
             .then((res) => {
                 this.setState({ product: res.data.result.data })
+            })
+            .catch((err) => console.log(err));
+
+        axios.get(this.state.getPromo)
+            .then((res) => {
+                console.log(res);
+                this.setState({ promos: res.data.result })
             })
             .catch((err) => console.log(err));
     }
@@ -103,10 +112,16 @@ class Handlingproduct extends Component {
                                     <span className={`${styles["desc-promo"]} text-center mt-3 mb-5 px-5`}>Coupons will be updated every weeks. Check them out!</span>
                                 </div>
                                 {/* Card promo start */}
-                                <CardPromo />
-                                <CardPromo />
-                                <CardPromo />
-                                <CardPromo />
+                                {this.state.promos.map((el, key) => (
+                                    <CardPromo
+                                        key={`${key}`}
+                                        id={el.id}
+                                        params={el.id}
+                                        name_product={el.name}
+                                        codepromo={el.code}
+                                        discount={el.discount}
+                                    />
+                                ))}
                                 {/* card promo end */}
 
                                 <button className={`${styles["apply-coupon"]} mt-5 rounded-5 w-100`}>Apply Coupon</button>
@@ -137,6 +152,7 @@ class Handlingproduct extends Component {
                                             id={e.id}
                                             params={e.id}
                                             product_name={e.name}
+                                            size={e.size}
                                             price={this.costing(e.price)}
                                             image_product={e.image} />
                                     ))}

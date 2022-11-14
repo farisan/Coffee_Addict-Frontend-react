@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 //  import redux
-import { setAddress } from "../redux/actions/action"
+import { setDataProfile } from "../redux/actions/action"
 
 // import react bootstrap
 import Button from "react-bootstrap/Button";
@@ -74,8 +74,9 @@ class Profile extends Component {
                 "x-access-token": getToken,
             },
         }).then((response) => {
-            this.props.setAddress("address", response.data.result[0].address)
-            this.props.setAddress("phone_number", response.data.result[0].phone_number)
+            this.props.setDataProfile("address", response.data.result[0].address)
+            this.props.setDataProfile("phone_number", response.data.result[0].phone_number)
+            this.props.setDataProfile("displayname", response.data.result[0].displayname)
             this.setState({
                 // debug: console.log(response.data.result[0].gender),
                 display: response.data.result[0].image,
@@ -226,7 +227,7 @@ class Profile extends Component {
 
 
 
-    // Show Modals
+    // handleClose, handleShow => Show Modals
     handleClose = () => this.setState({ show: false });
     handleShow = () => this.setState({ show: true });
 
@@ -432,16 +433,16 @@ class Profile extends Component {
                     keyboard={false}
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title>confirmation😊</Modal.Title>
+                        <Modal.Title>confirmation</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>are you sure you want to log out?</Modal.Body>
                     <Modal.Footer>
                         <Button
-                            variant="secondary"
-                            className="fw-bold text-bg-secondary text-white"
+                            variant="danger"
+                            className="fw-bold text-bg-danger text-white"
                             onClick={this.handleClose}
                         >
-                            No ❌
+                            No
                         </Button>
                         <Button
                             variant="success"
@@ -456,7 +457,7 @@ class Profile extends Component {
                                 }, 2000);
                             }}
                         >
-                            Yes ✅
+                            Yes
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -466,7 +467,7 @@ class Profile extends Component {
 }
 
 const mapDispatchToProps = {
-    setAddress,
+    setDataProfile,
 }
 
 const mapStateToProps = (reduxState) => {

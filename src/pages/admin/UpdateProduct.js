@@ -38,8 +38,8 @@ class UpdateProduct extends Component {
     };
 
     componentDidMount() {
-        this.getProduct()
         window.scrollTo(0, 0)
+        this.getProduct()
     }
 
     getProduct() {
@@ -52,10 +52,34 @@ class UpdateProduct extends Component {
                     description: response.data.result.data[0].description,
                     size: response.data.result.data[0].size,
                     stock: response.data.result.data[0].stock,
-                    price: this.costing(response.data.result.data[0].price),
+                    price: response.data.result.data[0].price,
                 })
             })
-            .catch((err) => { console.log(err); })
+            .catch((err) => { console.log(err) })
+    }
+
+    deleteProduct() {
+        const getToken = localStorage.getItem('token')
+        Axios.delete(`${process.env.REACT_APP_BACKEND_HOST}coffee/product/${this.props.params.id}`, {
+            headers: {
+                "x-access-token": getToken,
+            },
+        })
+            .then((response) => {
+                console.log(response);
+                toast.success('Success Delete Product !', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+                setTimeout(() => {
+                    this.props.navigate("/handlingproduct")
+                }, 1000)
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.err(err, {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            })
     }
 
     selectImage = () => {
@@ -177,14 +201,14 @@ class UpdateProduct extends Component {
     }
 
     render() {
-        console.log(this.state.image);
+        // console.log(localStorage.getItem('token'));
         return (
             <>
                 <ToastContainer />
                 <this.navtype />
                 <div className='container-fluid border-top mb-5'>
                     {/* breadcrumb */}
-                    <div className='container'>
+                    <div className='container d-flex flex-row justify-content-between'>
                         <div className='row py-3'>
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb">
@@ -193,6 +217,7 @@ class UpdateProduct extends Component {
                                 </ol>
                             </nav>
                         </div>
+                        <button className={`${styles["button-delete-product"]} bg-danger`} onClick={() => this.deleteProduct()}>Delete product</button>
                     </div>
                     {/* breadcrumb */}
 
@@ -248,7 +273,7 @@ class UpdateProduct extends Component {
                                         <option value="30">30 stock</option>
                                     </select> */}
                                     <input className={`${styles["input-stock-add-admin"]}`}
-                                        type="text"
+                                        type="number"
                                         name='stock'
                                         id='stock'
                                         value={this.state.stock}

@@ -28,7 +28,7 @@ class History extends Component {
             },
         })
             .then((response) => {
-                console.log(response.data.result.data);
+                // console.log(response.data.result.data);
                 this.setState({ history: response.data.result.data }, () => {
                     // return res.data.result.data[0].image;
                 });

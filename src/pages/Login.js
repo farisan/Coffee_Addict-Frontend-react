@@ -40,6 +40,7 @@ function Login() {
     const [passwords, setPasswords] = useState('')
 
 
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -97,6 +98,9 @@ function Login() {
     }
 
 
+
+
+
     /* Main Website */
     titlebar("Coffee Addict | Login")
     return (
@@ -128,7 +132,7 @@ function Login() {
                         </div>
                         <Link to="/forgotpassword" className={styles["forget-password"]}>Forget Password?</Link>
                         <div className={styles.button}>
-                            <button >Login</button>
+                            <button>Login</button>
                         </div>
                         <div className={styles["button-google"]}>
                             <span>

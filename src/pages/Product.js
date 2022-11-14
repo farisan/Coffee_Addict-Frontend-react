@@ -37,7 +37,7 @@ class Product extends Component {
         non_coffee: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=non_coffee&page=1&limit=12`,
         food: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=foods&page=1&limit=12`,
         addons: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?category=addon&page=1&limit=12`,
-        sort: `${process.env.REACT_APP_BACKEND_HOST}coffee/product/?sorting=cheapest`,
+        sort: `${process.env.REACT_APP_BACKEND_HOST}coffee/product`,
         currentPage: 1,
         totalPage: 1,
         navLogin: <Navbar />,
@@ -51,6 +51,7 @@ class Product extends Component {
             .then((res) => {
                 console.log(res.data.result);
                 this.setState({ product: res.data.result.data })
+                this.setState({ totalPage: res.data.result.totalPage })
             })
             .catch((err) => console.log(err));
     }
@@ -90,13 +91,29 @@ class Product extends Component {
             .then((res) => this.setState({ product: res.data.result.data }))
             .catch((err) => console.log(err));
     };
-    onSort = (e) => {
-        console.log(e.target.value);
+    Sort = (e) => {
+        console.log(`${this.state.sort}?sorting=${e.target.value}`);
         axios
-            .get(`${this.state.sort}?sorting=${e.target.value}`)
-            .then((res) => this.setState({ products: res.data.result.data }))
+            .get(`${this.state.sort}?sorting=${e.target.value}&page=1&limit=12`)
+            .then((res) => this.setState({ product: res.data.result.data }))
             .catch((err) => console.log(err));
     };
+
+
+    getPrevProducts = () => {
+        this.state.currentPage = this.state.currentPage - 1;
+        axios
+            .get(`${this.state.sort}?page=${this.state.currentPage}&limit=12`)
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
+    };
+    getNextProducts = () => {
+        this.state.currentPage = this.state.currentPage + 1;
+        axios
+            .get(`${this.state.sort}?page=${this.state.currentPage}&limit=12`)
+            .then((res) => this.setState({ product: res.data.result.data }))
+            .catch((err) => console.log(err));
+    }
 
     navtype = () => {
         if (localStorage.getItem('token')) {
@@ -143,7 +160,7 @@ class Product extends Component {
 
                             <div className='col-lg-8 col-md-12 col-sm-12'>
                                 <div className={`${styles["nav-product"]} d-flex flex-row justify-content-around mt-4`}>
-                                    <span><p className={styles.point} onClick={() => {
+                                    <span><p className={styles.point} value="favorite" onClick={() => {
                                         this.Favorite()
                                         this.setState({
                                             searchParams: { category: "favorite" }
@@ -153,7 +170,7 @@ class Product extends Component {
                                             })
                                     }} >Favorite & Promo</p></span>
 
-                                    <span><p className={styles.point} onClick={() => {
+                                    <span><p className={styles.point} value="coffee" onClick={() => {
                                         this.Coffee()
                                         this.setState({
                                             searchParams: { category: "coffee" }
@@ -163,7 +180,7 @@ class Product extends Component {
                                             })
                                     }}>Coffee</p></span>
 
-                                    <span><p className={styles.point} onClick={() => {
+                                    <span><p className={styles.point} value="non coffee" onClick={() => {
                                         this.NonCoffee()
                                         this.setState({
                                             searchParams: { category: "non coffee" }
@@ -173,7 +190,7 @@ class Product extends Component {
                                             })
                                     }}>Non Coffee</p></span>
 
-                                    <span><p className={styles.point} onClick={() => {
+                                    <span><p className={styles.point} value="food" onClick={() => {
                                         this.Food()
                                         this.setState({
                                             searchParams: { category: "food" }
@@ -183,7 +200,7 @@ class Product extends Component {
                                             })
                                     }}>Foods</p></span>
 
-                                    <span><p className={styles.point} onClick={() => {
+                                    <span><p className={styles.point} value="addon" onClick={() => {
                                         this.AddOn()
                                         this.setState({
                                             searchParams: { category: "addon" }
@@ -194,7 +211,7 @@ class Product extends Component {
                                     }}>Add-on</p></span>
                                 </div>
                                 <div className={`d-flex justify-content-end w-100 container`}>
-                                    <select className={`form-select form-select-sm ${styles["sort"]}`} aria-label=".form-select-sm example" onChange={this.onSort}>
+                                    <select className={`form-select form-select-sm ${styles["sort"]}`} aria-label=".form-select-sm example" onChange={this.Sort}>
                                         <option selected>Sorting</option>
                                         <option value="cheapest">cheapest</option>
                                         <option value="expensive">expensive</option>
@@ -220,8 +237,14 @@ class Product extends Component {
                                     <p className={styles["note-price"]}>*the price has been cutted by discount appears</p>
                                 </div>
                                 <div className="container d-flex justify-content-end mb-5">
-                                    <button className={`${styles["button-prev"]}`}>Prev</button>
-                                    <button className={`${styles["button-next"]}`}>Next</button>
+                                    <button className={`${styles["button-prev"]}`}
+                                        onClick={this.getPrevProducts}
+                                    // disabled={this.state.currentPage === 1}
+                                    >Prev</button>
+                                    <button className={`${styles["button-next"]}`}
+                                        onClick={this.getNextProducts}
+                                    // disabled={this.state.totalPage === this.state.currentPage}
+                                    >Next</button>
                                 </div>
 
 
