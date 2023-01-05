@@ -1,5 +1,3 @@
-
-
 .title-promo {
     font-family: 'Rubik';
     font-style: normal;
@@ -22,7 +20,7 @@
 
 .promo-one {
     width: 100%;
-    height: 109px;
+    height: 120px;
     background: #88B788;
     border-radius: 20px;
 }
@@ -94,7 +92,7 @@
     margin-left: 50px;
 }
 
-.note-price{
+.note-price {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -104,7 +102,7 @@
     color: #6A4029;
 }
 
-.edit-link-promo > a {
+.edit-link-promo>a {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;

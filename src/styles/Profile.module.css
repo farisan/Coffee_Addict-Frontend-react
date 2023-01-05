@@ -240,6 +240,14 @@ border-bottom: 10px solid #6A4029;
     padding: 5px 10px;
     outline: none;
 }
+.data-form text {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border:none;
+    border-bottom: 1px solid black;
+    padding: 5px 10px;
+    outline: none;
+}
 
 .data-form input:focus {
     border-bottom: 2px solid #FFBA33;

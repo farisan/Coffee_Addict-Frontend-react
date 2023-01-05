@@ -1,217 +1,386 @@
-import React, { Component } from 'react'
-import Axios from 'axios'
-import { Link } from 'react-router-dom'
-
-
-import withParams from "../../helpers/withRouteParams";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { editPromo } from "../../utility/axios";
+import axios from "axios";
 
 // import component
-import Navbar from "../../components/Navbar"
-import NavbarAdmin from "../../components/NavbarAdmin"
-import NavbarnotLogin from "../../components/Navbar-notLogin"
-import Footer from "../../components/Footer"
+import NavbarAdmin from "../../components/NavbarAdmin";
+import Footer from "../../components/Footer";
 
 // import css
-import styles from "../../styles/adminCSS/Updatepromo.module.css"
-
+import styles from "../../styles/adminCSS/newPromo.module.css";
 
 // import images
-import img_product from "../../asset/profil-bg.png";
+// import img_product from "../../asset/profil-bg.png";
+import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { Button, Modal } from "react-bootstrap";
+import { ChromePicker } from "react-color";
 
+function UpdatePromo() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [oldCode, setOldCode] = useState("");
+  const [OldHex, setOldHex] = useState("");
+  // const [oldDisc, setOldDisc] = useState(0);
+  const [code, setCode] = useState("");
+  const [display, setDisplay] = useState(null);
+  const [product, setProduct] = useState([]);
+  const [prevColor, setPrevColor] = useState("");
+  const [color, setColor] = useState("");
+  const [showColor, setShowColor] = useState(false);
+  const [image, setImage] = useState("");
+  const [date, setDate] = useState("");
+  const [show, setShow] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  // const [search, setSearch] = useState("");
+  const [nameProduct, setNameProduct] = useState("");
+  const [sizeProduct, setSizeProduct] = useState("");
+  const [productId, setProductId] = useState("");
+  const [disc, setDisc] = useState("");
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-class UpdatePromo extends Component {
+  const handleColor = (color) => {
+    setColor(color);
+  };
 
-    state = {
-        navLogin: <Navbar />,
-        navAdmin: <NavbarAdmin />,
-        navnotLogin: <NavbarnotLogin />,
-        urlGet: `${process.env.REACT_APP_BACKEND_HOST}coffee/promo/promo/${this.props.params.id}`,
-        image: "",
-        name: "",
-        price: "",
-        description: "",
-        size: "",
-        discount: "",
-        code: "",
-    };
+  const handleImage = (e) => {
+    let file = e.target.files[0];
+    setImage(file);
+  };
 
-    componentDidMount() {
-        this.getPromo()
-    }
+  const handleCloseDelete = () => {
+    setShowDelete(false);
+  };
 
-    getPromo = () => {
-        Axios.get(this.state.urlGet)
-            .then((response) => {
-                console.log(response);
-                this.setState({
-                    image: response.data.result.data[0].image,
-                    name: response.data.result.data[0].name,
-                    price: response.data.result.data[0].price,
-                    description: response.data.result.data[0].description,
-                    size: response.data.result.data[0].size,
-                    discount: response.data.result.data[0].discount,
-                    code: response.data.result.data[0].code,
-                })
-            })
-            .catch((err) => console.log(err))
-    }
+  const handleClose = () => {
+    setProductId("");
+    setNameProduct("");
+    setSizeProduct("");
+    setShow(false);
+  };
 
-    navtype = () => {
-        if (localStorage.getItem('token')) {
-            if (localStorage.getItem("role") === "user") {
-                return this.state.navLogin
-            } else {
-                return this.state.navAdmin
-            }
-        } else {
-            return this.state.navnotLogin
+  const handleDelete = () => {
+    const getToken = localStorage.getItem("token");
+    axios
+      .patch(
+        `${process.env.REACT_APP_BACKEND_HOST}/promo/delete/${id}`,
+        {},
+        {
+          headers: {
+            "x-access-token": getToken,
+          },
         }
+      )
+      .then((res) => {
+        toast.success("success delete promo", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        navigate("/Product");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleCreatePromo = async () => {
+    try {
+      // console.log("klik")
+      const getToken = await localStorage.getItem("token");
+      const formData = new FormData();
+      if (productId) formData.append("product_id", productId);
+      if (code) formData.append("code", code);
+      if (disc) formData.append("discount", disc);
+      if (date) formData.append("valid", date);
+      if (prevColor) formData.append("hex_color", prevColor);
+      if (image) formData.append("image", image);
+      await editPromo(getToken, formData, id);
+      toast.success("success add promo", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      // navigate("/");
+    } catch (error) {
+      console.log(error.response);
+      toast.error("error add product", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      // navigate("/");
     }
+  };
 
+  // const handleSearch = (e) => {
+  //   setSearch(e.target.value);
+  // };
 
-    render() {
-        return (
-            <>
-                <this.navtype />
-                <div className='container-fluid border-top mb-5'>
-                    {/* breadcrumb */}
-                    <div className='container'>
-                        <div className='row py-3'>
-                            <nav aria-label="breadcrumb">
-                                <ol className="breadcrumb">
-                                    <li className={`breadcrumb-item ${styles["step-one"]}`}><Link to="/handlingproduct">Product</Link></li>
-                                    <li className={`breadcrumb-item ${styles["step-two"]}`} >Add new promo</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    {/* breadcrumb */}
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_HOST}/product`)
+      .then((res) => setProduct(res.data.result.data))
+      .catch();
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_HOST}/promo/promo/${id}`)
+      .then((res) => {
+        setCode(res.data.result.data[0].code);
+        setOldCode(res.data.result.data[0].code);
+        setDisc(res.data.result.data[0].discount);
+        setDate(res.data.result.data[0].valid);
+        setOldHex(res.data.result.data[0].hex_color);
+        setNameProduct(res.data.result.data[0].name);
+        setDisplay(res.data.result.data[0].image);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
-                    {/* Left Content */}
-                    <div className='container'>
-                        <div className='row gap-2 d-flex justify-content-between'>
-                            <section className='col-lg-5 col-md-12 col-sm-12 d-flex flex-column align-items-center '>
-                                <div className='pt-5'>
-                                    <img className='rounded-circle' src={img_product} alt='img_product' width="250px" height="250px"></img>
-                                </div>
-                                <button className={`${styles["change-profile"]} mt-5 rounded-5`}>Save Change</button>
-                                <div className={`${styles["profile-image"]} text-center rounded-5 mt-3 mb-5`}>
-                                    <label for="img-profile">Choose Photo</label>
-                                    <input type="file" name="" id="img-profile" />
-                                </div>
-                                <div className={`${styles[`delivery-hour`]}`}>
-                                    <p >Enter the discount :</p>
-                                </div>
-                                <div className='mt-3 w-100 d-flex align-item-center justify-content-center'>
-                                    <select className={` ${styles["dropdown-hour"]} ps-3`}>
-                                        <option selected>Input discount</option>
-                                        <option value="1">1 hour</option>
-                                        <option value="2">2 hour</option>
-                                        <option value="3">3 hour</option>
-                                        <option value="3">4 hour</option>
-                                        <option value="3">5  hour</option>
-                                    </select>
-                                </div>
-                                <div className={`${styles[`delivery-hour`]} mt-5`}>
-                                    <p >Expire date :</p>
-                                </div>
-                                <div className='mt-3 w-100 d-flex align-item-center justify-content-center'>
-                                    <select className={`${styles["dropdown-hour"]} ps-3 `}>
-                                        <option selected>Select start date</option>
-                                        <option value="1">1 hour</option>
-                                        <option value="2">2 hour</option>
-                                        <option value="3">3 hour</option>
-                                        <option value="3">4 hour</option>
-                                        <option value="3">5  hour</option>
-                                    </select>
-                                </div>
-                                <div className='mt-3 w-100 d-flex align-item-center justify-content-center'>
-                                    <select className={`${styles["dropdown-hour"]} ps-3 `}>
-                                        <option selected>Select end date</option>
-                                        <option value="1">1 hour</option>
-                                        <option value="2">2 hour</option>
-                                        <option value="3">3 hour</option>
-                                        <option value="3">4 hour</option>
-                                        <option value="3">5  hour</option>
-                                    </select>
-                                </div>
-                                <div className={`${styles[`delivery-hour`]} mt-5`}>
-                                    <p >Input coupon code :</p>
-                                </div>
-                                <div className='mt-3 w-100 d-flex align-item-center justify-content-center mb-5'>
-                                    <input className={`${styles["input-stock-add-admin"]}`}
-                                        type="text"
-                                        name=''
-                                        id=''
-                                        // value={}
-                                        // onChange={}
-                                        placeholder="Input Code Promo"
-                                    />
-                                </div>
-                            </section>
+  return (
+    <>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>select product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          select product to add promo
+          {product &&
+            product.map((e) => (
+              <div
+                style={
+                  productId === e.id
+                    ? {
+                        backgroundColor: "black",
+                        color: "white",
+                        cursor: "pointer",
+                      }
+                    : { backgroundColor: "#fff", cursor: "pointer" }
+                }
+                onClick={() => {
+                  setProductId(e.id);
+                  setNameProduct(e.name);
+                  setSizeProduct(e.size);
+                }}
+              >
+                {e.name + "       size : " + e.size}
+              </div>
+            ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            className="fw-bold text-bg-danger text-white"
+            onClick={handleClose}
+          >
+            cancel
+          </Button>
+          <Button
+            variant="success"
+            className="fw-bold text-bg-success text-white"
+            onClick={() => {
+              setShow(false);
+            }}
+          >
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-                            <section className='col-lg-6 col-md-12 col-sm-12 pt-5 '>
-                                <div className={`${styles["data-form"]} d-flex flex-column w-100`}>
-                                    <label for="">Name :</label>
-                                    <input
-                                        type="email"
-                                        name=""
-                                        id=""
-                                        value={this.state.name}
-                                        disabled
-                                        placeholder="Type product name min. 50 characters" />
-                                    <label for="">Price :</label>
-                                    <input
-                                        type="number"
-                                        name=""
-                                        id=""
-                                        value={this.state.price}
-                                        disabled
-                                        placeholder="Type the price" />
-                                    <label for="">Description :</label>
-                                    <input
-                                        type="text"
-                                        name=""
-                                        id=""
-                                        value={this.state.description}
-                                        disabled
-                                        placeholder="Describe your product min. 150 characters" />
-                                </div>
-                                <div className={`${styles[`input-size`]} mt-5`}>
-                                    <p className={styles['input-product-size']}>Input product size :</p>
-                                    <p className={styles['input-product-desc']}>Click size you want to use for this product</p>
-                                </div>
-                                <div className={`${styles.size} d-flex justify-content-start text-center mt-3`}>
-                                    <button className=" rounded-circle" disabled>R</button>
-                                    <button className=" rounded-circle" disabled>L</button>
-                                    <button className=" rounded-circle" disabled>XL</button>
-                                </div>
-                                <div className={`${styles[`input-size`]} mt-5`}>
-                                    <p className={styles['input-product-size']}>Category product :</p>
-                                    <p className={styles['input-product-desc']}>Click methods you want to use for this product</p>
-                                </div>
-                                <div className={`${styles.method} d-flex justify-content-start text-center mt-3`}>
-                                    <button className=" rounded-3" disabled>Coffee</button>
-                                    <button className=" rounded-3" disabled>Non Coffee</button>
-                                    <button className=" rounded-3" disabled>Foods</button>
-                                    <button className=" rounded-3" disabled>Addon</button>
-                                </div>
-                                <button className={`${styles["save-product"]} rounded-5`}>Save Change</button>
-                                <button className={`${styles["cancel-product"]} mt-3 rounded-5`}>Cancel</button>
-                            </section>
-                        </div>
-                    </div>
-                    {/* Left Content */}
+      <Modal
+        show={showDelete}
+        onHide={handleCloseDelete}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>select product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>are you sure to delete promo?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            className="fw-bold text-bg-danger text-white"
+            onClick={handleCloseDelete}
+          >
+            cancel
+          </Button>
+          <Button
+            variant="success"
+            className="fw-bold text-bg-success text-white"
+            onClick={handleDelete}
+          >
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
+      <ToastContainer />
+      <NavbarAdmin />
+      <div className="container-fluid border-top mb-5">
+        {/* breadcrumb */}
+        <div className="container">
+          <div className="row py-3">
+            <nav aria-label="breadcrumb">
+              <div className="d-flex flex-row align-items-center justify-content-between">
+                <ol className="breadcrumb">
+                  <li
+                    className={`breadcrumb-item ${styles["step-one"]}`}
+                    onClick={() => navigate("/product")}
+                  >
+                    Promo
+                  </li>
+                  <li className={`breadcrumb-item ${styles["step-two"]}`}>
+                    {oldCode}
+                  </li>
+                </ol>
+                <button
+                  className={styles["trash_button"]}
+                  onClick={() => {
+                    setShowDelete(true);
+                  }}
+                >
+                  <i className="bi bi-trash text-white fs-5" />
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        {/* breadcrumb */}
 
+        {/* Left Content */}
+        <div className="container">
+          <div className="row gap-2 d-flex justify-content-between">
+            <section className="col-lg-5 col-md-12 col-sm-12 d-flex flex-column align-items-center ">
+              <div className="pt-5">
+                <img
+                  className="rounded-circle"
+                  src={!image ? display : URL.createObjectURL(image)}
+                  alt="img_product"
+                  width="250px"
+                  height="250px"
+                ></img>
+              </div>
+              <div
+                className={`${styles["profile-image"]} text-center rounded-5 mt-3`}
+              >
+                <label for="img-profile">Choose Photo</label>
+                <input
+                  type="file"
+                  name="file"
+                  id="img-profile"
+                  onChange={(e) => handleImage(e)}
+                />
+              </div>
+              <div
+                className={`${styles["cancel-image"]} text-center rounded-5 mt-3 mb-5`}
+                onClick={() => setImage(null)}
+              >
+                <label>Cancel Image</label>
+              </div>
+              <div className={`${styles[`delivery-hour`]} mt-5`}>
+                <p>background color :</p>
+              </div>
+              <div className={styles.color}>
+                <p className={`${styles.pcolor}`}>
+                  color : {prevColor ? prevColor : OldHex}
+                </p>
+                <div
+                  className={styles.blockcolor}
+                  style={{ backgroundColor: prevColor ? prevColor : OldHex }}
+                ></div>
+              </div>
+              <div className={`mt-3 w-100 d-flex align-item-center justify-content-center`}>
+                {showColor ? (
+                  <ChromePicker
+                    color={color}
+                    onChange={(color) => handleColor(color.hex)}
+                  />
+                ) : null}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "80%",
+                }}
+              >
+                <button className={styles.bg_setColor}
+                  onClick={() => {
+                    setShowColor((showColor) => !showColor);
+                    if (showColor) return setPrevColor(color);
+                  }}
+                >
+                  {showColor ? "confirm color" : "select color"}
+                </button>
+                {showColor && (
+                  <button
+                    onClick={() => {
+                      setShowColor((showColor) => !showColor);
+                      setColor(prevColor);
+                    }}
+                  >
+                    cancel
+                  </button>
+                )}
+              </div>
+            </section>
 
-
-                </div>
-                <Footer />
-            </>
-        )
-    }
+            <section className="col-lg-6 col-md-12 col-sm-12 pt-5 ">
+              <div
+                className={`${styles["data-form"]} d-flex flex-column w-100`}
+              >
+                <label for="">code :</label>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Type code"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value.toUpperCase())}
+                />
+                <label for="">discount :</label>
+                <input
+                  type="number"
+                  value={disc}
+                  onChange={(e) => setDisc(e.target.value)}
+                  placeholder="Type the price"
+                />
+                <label>for product :</label>
+                <div className="py-2" onClick={() => setShow(true)}>product : {nameProduct}</div>
+                <div className="py-2" onClick={() => setShow(true)}>size : {sizeProduct}</div>
+                <button className={styles.choose_product} onClick={() => setShow(true)}>choose product</button>
+                <label className="pt-3" for="">valid until :</label>
+                <input
+                  type="date"
+                  name=""
+                  id=""
+                  value={date}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                  }}
+                />
+              </div>
+              <button
+                className={`${styles["save-product"]} rounded-5`}
+                onClick={handleCreatePromo}
+              >
+                Save Change
+              </button>
+              <button
+                className={`${styles["cancel-product"]} mt-3 rounded-5`}
+                onClick={() => navigate("/product")}
+              >
+                Cancel
+              </button>
+            </section>
+          </div>
+        </div>
+        {/* Left Content */}
+      </div>
+      <Footer />
+    </>
+  );
 }
 
-export default withParams(UpdatePromo)
+export default UpdatePromo;

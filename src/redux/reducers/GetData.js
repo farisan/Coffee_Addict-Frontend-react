@@ -11,8 +11,9 @@ const initialStateProduct = {
     size: "",
     image: "",
     totalPrice: "",
-    deliveryName: "",
-    deliveryPrice: "",
+    discount: "",
+    codeDiscount: "",
+    shipping: "",
 }
 
 const intialStateProductCounter = {

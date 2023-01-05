@@ -1,6 +1,12 @@
 .bg-history {
     background-image: url("../asset/background-history.png");
     background-size: cover;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .title-history-one {
@@ -28,7 +34,7 @@
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
-    line-height: 38px; 
+    line-height: 38px;
     color: #000000;
 }
 
@@ -41,11 +47,47 @@
     color: #895537;
 }
 
-.title-history-status{
+.title-history-status {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 30px; 
+    line-height: 30px;
     color: #6A4029;
+}
+
+.card_bar {
+    margin: 10px;
+    width: 400px;
+    gap: 5%;
+}
+
+.deleted {
+    background-color: #895537;
+    padding: 20px;
+    width: 40px;
+    height: 40px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 4s;
+    transition-delay: 2s;
+}
+
+.card_bar:hover .deleted {
+    display: flex;
+    transition-property: all;
+    transition-duration: 4s;
+    transition-delay: 2s;
+}
+
+@media only screen and (min-width: 425px) {
+
+    .bg-history {
+        height: auto;
+    }
 }

@@ -1,15 +1,17 @@
-import { ActionType } from "redux-promise-middleware";
+import {ActionType} from 'redux-promise-middleware';
 
-const actionStrings = {
-    counterUp: "COUNTER_UP",
-    counterDown: "COUNTER_DOWN",
-    counterReset: "COUNTER_RESET",
-    getBooks: "GET_BOOKS",
-    pending: `_${ActionType.Pending}`,
-    fulfilled: `_${ActionType.Fulfilled}`,
-    rejected: `_${ActionType.Rejected}`,
-    Login: "LOGIN",
-    Logout: "LOGOUT",
+const ACTION_STRING = {
+  register: 'AUTH_REGISTER',
+  login: 'AUTH_LOGIN',
+  forgot: 'AUTH_FORGOT',
+  reset: 'AUTH_RESET',
+  pending: `_${ActionType.Pending}`,
+  fulfilled: `_${ActionType.Fulfilled}`,
+  rejected: `_${ActionType.Rejected}`,
+  profile: 'PROFILE',
+  product: 'PRODUCT',
+  logout: 'LOGOUT',
+  search : 'SEARCH'
 };
 
-export default actionStrings;
+export default ACTION_STRING;
