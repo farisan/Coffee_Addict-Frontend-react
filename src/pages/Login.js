@@ -78,6 +78,7 @@ function Login() {
    const handleApi = async (e) => {
       try {
          e.preventDefault();
+         setLoading(true)
          if(!email || !passwords ) return  (toast.error("Data register can't be empty", {
          position: toast.POSITION.TOP_RIGHT,
          }), setLoading(false))
