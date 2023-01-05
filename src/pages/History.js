@@ -50,7 +50,6 @@ const History = () => {
             setErr(err.response.data.msg);
             setLoading(false);
          });
-      console.log(url);
    };
 
    const deleteHistory = () => {
@@ -143,7 +142,7 @@ const History = () => {
                         <Spinner animation="border" variant="info" />
                      </div>
                   ) : err === "History Not Found" ? (
-                     <h1 className="text-white text-center mt-5">
+                     <h1 className="text-white text-center my-5">
                         History Empty
                         <i class="bi bi-bag-x-fill">.</i>
                      </h1>

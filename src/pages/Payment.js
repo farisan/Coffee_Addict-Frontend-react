@@ -122,6 +122,7 @@ const Payment = () => {
                         <div className={styles["box-left"]}>
                            <p>Order Summary</p>
                            {/* payment 1 */}
+                           {product.image === null ? null : 
                            <div className={styles["payment-content"]}>
                               <img
                                  src={product.image}
@@ -137,7 +138,7 @@ const Payment = () => {
                               <div className={styles["payment-idr"]}>
                                  <p>{costing(product.price)}</p>
                               </div>
-                           </div>
+                           </div>}
 
                            {/* subtotal */}
                            <hr className="mx-5 my-4"></hr>
@@ -282,7 +283,9 @@ const Payment = () => {
                               <button onClick={handleTransactions}>
                                  {loading ? <div className="d-flex justify-content-center align-items-center mx-auto">
                         <Spinner animation="border" variant="info" />
-                     </div> : <span>Confirm and Pay</span>}
+                     </div> : (product.image === null) ? null : (
+                        <span>Confirm and Pay</span>
+                     )}
                               </button>
                            </div>
                         </div>
