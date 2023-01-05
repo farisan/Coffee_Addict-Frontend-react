@@ -175,10 +175,10 @@ const Payment = () => {
                               <div className={styles["box-address"]}>
                                  <h5>
                                     <b className="me-1">Delivery to :</b>
-                                    {profile.displayname === null ? "'Please insert your data'" : profile.displayname}
+                                    {profile.displayname === null ? "Please insert your data" : profile.displayname}
                                  </h5>
                                  <p className={styles["address-column"]}>
-                                    {profile.address === null ? "'Please input your address in page profile'" : profile.address}
+                                    {profile.address === null ? "Please input your address in page profile" : profile.address}
                                  </p>
                                  <p>{profile.phone_number}</p>
                               </div>
@@ -280,13 +280,11 @@ const Payment = () => {
                               </div>
                            </div>
                            <div className={styles["confirm-pay"]}>
-                              <button onClick={handleTransactions}>
+                              {product.image === null ? null : <button onClick={handleTransactions}>
                                  {loading ? <div className="d-flex justify-content-center align-items-center mx-auto">
                         <Spinner animation="border" variant="info" />
-                     </div> : (product.image === null) ? null : (
-                        <span>Confirm and Pay</span>
-                     )}
-                              </button>
+                     </div> : <span>Confirm and Pay</span>}
+                              </button>}
                            </div>
                         </div>
                      </div>
