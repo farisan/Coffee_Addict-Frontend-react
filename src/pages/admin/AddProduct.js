@@ -64,7 +64,7 @@ function AddProduct() {
       toast.success("success add product", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      navigate("/");
+      navigate("/product");
     } catch (error) {
       console.log(error);
       toast.error(`${error.response.data.msg}`, {

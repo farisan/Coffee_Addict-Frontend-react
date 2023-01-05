@@ -69,7 +69,7 @@ function AddPromo() {
       toast.success("success add promo", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      navigate("/");
+      navigate("/product");
     } catch (error) {
       console.log(error.response);
       toast.error("error add product", {
