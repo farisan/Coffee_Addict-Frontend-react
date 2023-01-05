@@ -144,7 +144,7 @@ const History = () => {
                   ) : err === "History Not Found" ? (
                      <h1 className="text-white text-center my-5">
                         History Empty
-                        <i class="bi bi-bag-x-fill">.</i>
+                        <i class="bi bi-bag-x-fill px-3">.</i>
                      </h1>
                   ) : (
                      <>
