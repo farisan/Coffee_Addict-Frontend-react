@@ -54,8 +54,11 @@ const SignUp = () => {
             phone_number: phone_number,
          })
          .then((response) => {
-            console.log(response.data.result);
-            SuccessMessage(); //menampilkan notifikasi berhasil
+            // console.log(response.data.result);
+            toast.success(response.data.result.msg, {
+               // menampilkan notifikasi error
+               position: toast.POSITION.TOP_RIGHT,
+            });
             navigate("/login")
             setLoading(false)
          })
@@ -94,12 +97,7 @@ const SignUp = () => {
       // debug: console.log(e.target.value),
    };
 
-   // SuccessMessage => toast, menampilkan popUP notifikasi jika berhasil
-   const SuccessMessage = () => {
-      toast.success("Register Success !", {
-         position: toast.POSITION.TOP_RIGHT,
-      });
-   };
+
 
    titlebar("Coffee Addict | Sign-Up");
    return (
