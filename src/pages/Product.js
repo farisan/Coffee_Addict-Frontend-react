@@ -115,9 +115,7 @@ const Product = () => {
    const getPrevProducts = () => {
       setCurrentPage(currentPage - 1);
       navigate(
-         `?category=${category}&sorting=${sorting}&page=${
-            currentPage - 1
-         }&limit=12`
+         `?category=${category}&sorting=${sorting}&page=${currentPage - 1}&limit=12`
       );
       axios
          .get(prev)
@@ -132,9 +130,7 @@ const Product = () => {
    const getNextProducts = () => {
       setCurrentPage(currentPage + 1);
       navigate(
-         `?category=${category}&sorting=${sorting}&page=${
-            currentPage + 1
-         }&limit=12`
+         `?category=${category}&sorting=${sorting}&page=${currentPage + 1}&limit=12`
       );
       axios
          .get(next)
