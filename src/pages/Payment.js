@@ -175,7 +175,7 @@ const Payment = () => {
                               <div className={styles["box-address"]}>
                                  <h5>
                                     <b className="me-1">Delivery to :</b>
-                                    {profile.displayname === null ? "Please insert your data" : profile.displayname}
+                                    {profile.displayname === null ? "-" : profile.displayname}
                                  </h5>
                                  <p className={styles["address-column"]}>
                                     {profile.address === null ? "Please input your address in page profile" : profile.address}
