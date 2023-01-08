@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import axios from "axios";
 // import css
 import styles from "../styles/Product.module.css";
@@ -12,7 +12,7 @@ import CardPromo from "../components/CardPromo";
 import CardProduct from "../components/Card-Product";
 import titlebar from "../utility/WebDinamis";
 import { useState, useEffect } from "react";
-import {  useNavigate  } from "react-router-dom";
+import {  useLocation, useNavigate  } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { useSelector } from "react-redux";
 
@@ -144,6 +144,24 @@ const Product = () => {
    };
 
    
+
+   const { search } = useLocation();
+   useMemo(() => new URLSearchParams(search), [search]);
+   // console.log(search);
+
+   useEffect(() => {
+      setLoading(true);
+      axios
+         .get(
+            `${url}${search}`
+         )
+         .then((res) => {
+            setProduct(res.data.result.data);
+            // console.log(res.data.result);
+            setLoading(false);
+         })
+         .catch((err) => console.log(err));
+   }, [search.length]);
 
    titlebar("Coffee Addict | Product");
    return (
