@@ -13,6 +13,9 @@ import Modal from "react-bootstrap/Modal";
 
 // import css
 import styles from "../styles/Profile.module.css";
+import { Icon } from "react-icons-kit";
+import { eye } from "react-icons-kit/feather/eye";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
 
 // import Component
 import Footer from "../components/Footer.js";
@@ -47,9 +50,99 @@ const Profile = () => {
    const [isEdit, setIsEdit] = useState(true);
    const [loading, setLoading] = useState(false);
    const [show, setShow] = useState(false);
-   // const navLogin = <Navbar />;
-   // const navAdmin = <NavbarAdmin />;
-   // const navnotLogin = <NavbarnotLogin />;
+
+   const [showPass, setShowPass] = useState(false);
+   const [typeOld, setTypeOld] = useState("password");
+   const [iconOld, setIconOld] = useState(eyeOff);
+   const [typeNew, setTypeNew] = useState("password");
+   const [iconNew, setIconNew] = useState(eyeOff);
+   const [typeConfirm, setTypeConfirm] = useState("password");
+   const [iconConfirm, setIconConfirm] = useState(eyeOff);
+   const [newPasswords, setNewPasswords] = useState("");
+   const [oldPasswords, setOldPasswords] = useState("");
+   const [confirmPasswords, setConfirmPasswords] = useState("");
+
+    const handleClosePass = () => {
+    setShowPass(false);
+    setTypeOld("password");
+    setIconOld(eyeOff);
+    setTypeNew("password");
+    setIconNew(eyeOff);
+    setTypeConfirm("password");
+    setIconConfirm(eyeOff);
+    setNewPasswords("");
+    setOldPasswords("");
+    setConfirmPasswords("");
+  };
+
+  const handleOldToggle = () => {
+    if (typeOld === "password") {
+      setIconOld(eye);
+      setTypeOld("text");
+    } else {
+      setIconOld(eyeOff);
+      setTypeOld("password");
+    }
+  };
+  const handleNewToggle = () => {
+    if (typeNew === "password") {
+      setIconNew(eye);
+      setTypeNew("text");
+    } else {
+      setIconNew(eyeOff);
+      setTypeNew("password");
+    }
+  };
+  const handleConfirmToggle = () => {
+    if (typeConfirm === "password") {
+      setIconConfirm(eye);
+      setTypeConfirm("text");
+    } else {
+      setIconConfirm(eyeOff);
+      setTypeConfirm("password");
+    }
+  };
+
+  const handleOldPasswords = (e) => {
+    setOldPasswords(e.target.value);
+  };
+  const handleNewPasswords = (e) => {
+    setNewPasswords(e.target.value);
+  };
+  const handleConfirmPasswords = (e) => {
+    setConfirmPasswords(e.target.value);
+  };
+
+  const handleSavePassword = () => {
+    const getToken = localStorage.getItem("token");
+    if (newPasswords !== confirmPasswords) {
+      return toast.error("confirm password worng", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    Axios
+      .patch(
+        `${process.env.REACT_APP_BACKEND_HOST}/users/editPasswords`,
+        {
+          old_password: oldPasswords,
+          new_password: newPasswords,
+        },
+        {
+          headers: {
+            "x-access-token": getToken,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("sucess edit password");
+        handleClosePass();
+      })
+      .catch((err) =>
+        toast.error(err.response.data.msg.msg, {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+      );
+  };
 
    useEffect(() => {
       window.scrollTo(0, 0);
@@ -231,7 +324,10 @@ const Profile = () => {
                   >
                      Remove Photo
                   </button>
-                  <button
+                  <button onClick={(e) => {
+                e.preventDefault();
+                setShowPass(true);
+              }}
                      className={`${styles["editpwd-profile"]} mt-5 rounded-5`}
                   >
                      Edit Password
@@ -427,6 +523,82 @@ const Profile = () => {
          {/* <!-- End Container Full Center --> */}
 
          <Footer></Footer>
+
+<Modal
+        show={showPass}
+        onHide={handleClosePass}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Edit password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label>old Password :</label>
+              <input
+                type={typeOld}
+                value={oldPasswords}
+                placeholder="Enter your old Password here"
+                onChange={handleOldPasswords}
+              />
+
+              <span onClick={handleOldToggle}>
+                Show Password
+                <Icon icon={iconOld} className="ms-2 my-2" />
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label>new Password :</label>
+              <input
+                type={typeNew}
+                value={newPasswords}
+                placeholder="Enter your new Password here"
+                onChange={handleNewPasswords}
+              />
+
+              <span onClick={handleNewToggle}>
+                Show Password
+                <Icon icon={iconNew} className="ms-2 my-2" />
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label>confirm Password :</label>
+              <input
+                type={typeConfirm}
+                value={confirmPasswords}
+                placeholder="Enter your confirm Password here"
+                onChange={handleConfirmPasswords}
+              />
+
+              <span onClick={handleConfirmToggle}>
+                Show Password
+                <Icon icon={iconConfirm} className="ms-2 my-2" />
+              </span>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            className="fw-bold text-bg-danger text-white"
+            onClick={handleClosePass}
+          >
+            cancel
+          </Button>
+          <Button
+            variant="success"
+            className="fw-bold text-bg-success text-white"
+            onClick={() => {
+              handleSavePassword();
+            }}
+          >
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
          <Modal
             show={show}
             onHide={handleClose}
