@@ -13,6 +13,7 @@ import styles from "../../styles/adminCSS/Updateproduct.module.css";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../../utility/axios";
 import { useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function AddProduct() {
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false)
 
 
   useEffect(() => {
@@ -49,6 +51,7 @@ function AddProduct() {
 
   const saveHandle = async () => {
     try {
+      setLoading(true)
       const getToken = await localStorage.getItem("token");
       // console.log(getToken)
       const formData = new FormData();
@@ -65,11 +68,13 @@ function AddProduct() {
         position: toast.POSITION.TOP_RIGHT,
       });
       navigate("/product");
+      setLoading(false)
     } catch (error) {
       console.log(error);
       toast.error(`${error.response.data.msg}`, {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setLoading(false)
     }
   };
 
@@ -252,12 +257,14 @@ function AddProduct() {
                   Addon
                 </button>
               </div>
-              <button
+              {loading ? <div className="d-flex justify-content-center align-items-center pt-3">
+                           <Spinner animation="border" />
+                        </div> :<button
                 className={`${styles["save-product"]} mt-5 rounded-5`}
                 onClick={()=>saveHandle()}
               >
                 Save Change
-              </button>
+              </button>}
               <button
                 className={`${styles["cancel-product"]} mt-3 rounded-5`}
                 onClick={()=>returnInitial()}

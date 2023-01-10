@@ -14,7 +14,7 @@ import styles from "../../styles/adminCSS/newPromo.module.css";
 // import img_product from "../../asset/profil-bg.png";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { ChromePicker } from "react-color";
 
 function UpdatePromo() {
@@ -38,6 +38,8 @@ function UpdatePromo() {
   const [sizeProduct, setSizeProduct] = useState("");
   const [productId, setProductId] = useState("");
   const [disc, setDisc] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [saveloading, setSaveLoading] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,6 +88,7 @@ function UpdatePromo() {
 
   const handleCreatePromo = async () => {
     try {
+      setSaveLoading(true)
       // console.log("klik")
       const getToken = await localStorage.getItem("token");
       const formData = new FormData();
@@ -100,11 +103,13 @@ function UpdatePromo() {
         position: toast.POSITION.TOP_RIGHT,
       });
       navigate("/product");
+      setSaveLoading(false)
     } catch (error) {
       console.log(error.response);
       toast.error("error add product", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setSaveLoading(false)
       // navigate("/");
     }
   };
@@ -114,22 +119,32 @@ function UpdatePromo() {
   // };
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(`${process.env.REACT_APP_BACKEND_HOST}/product`)
-      .then((res) => setProduct(res.data.result.data))
-      .catch();
+      .then((res) => {
+        setProduct(res.data.result.data)
+      })
+      .catch((err) => {
+        console.log(err)
+        setLoading(false)
+      });
     axios
       .get(`${process.env.REACT_APP_BACKEND_HOST}/promo/promo/${id}`)
       .then((res) => {
         setCode(res.data.result.data[0].code);
         setOldCode(res.data.result.data[0].code);
         setDisc(res.data.result.data[0].discount);
-        setDate(res.data.result.data[0].valid);
+        setDate((res.data.result.data[0].valid).slice(0,10));
         setOldHex(res.data.result.data[0].hex_color);
         setNameProduct(res.data.result.data[0].name);
         setDisplay(res.data.result.data[0].image);
+        setLoading(false)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setLoading(false)
+      });
   }, [id]);
 
   return (
@@ -217,8 +232,10 @@ function UpdatePromo() {
 
       <ToastContainer />
       <NavbarAdmin />
-      <div className="container-fluid border-top mb-5">
-        {/* breadcrumb */}
+      {loading ? <div className="d-flex justify-content-center align-items-center pt-3">
+                           <Spinner animation="border" />
+                        </div> : <><div className="container-fluid border-top mb-5">
+        
         <div className="container">
           <div className="row py-3">
             <nav aria-label="breadcrumb">
@@ -361,12 +378,14 @@ function UpdatePromo() {
                   }}
                 />
               </div>
-              <button
+              {saveloading ? <div className="d-flex justify-content-center align-items-center pt-3">
+                           <Spinner animation="border" />
+                        </div> : <button
                 className={`${styles["save-product"]} rounded-5`}
                 onClick={handleCreatePromo}
               >
                 Save Change
-              </button>
+              </button>}
               <button
                 className={`${styles["cancel-product"]} mt-3 rounded-5`}
                 onClick={() => navigate("/product")}
@@ -377,7 +396,7 @@ function UpdatePromo() {
           </div>
         </div>
         {/* Left Content */}
-      </div>
+      </div> </>}
       <Footer />
     </>
   );

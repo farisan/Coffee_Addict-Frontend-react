@@ -227,13 +227,7 @@ const Profile = () => {
    // handleCancel => kondisi ketika button cancel di klik maka akan mengembalikan inputan awal
    const handleCancel = (e) => {
       setLoading(false);
-      setAddress("");
-      setBirthday("");
-      setDisplayname("");
-      setFirstname("");
-      setLastname("");
-      setGender("");
-      setIsEdit(true);
+      window.location.reload(false);
    };
 
    // SuccessMessage, LogoutMessage => notifikasi sukses dan gagal

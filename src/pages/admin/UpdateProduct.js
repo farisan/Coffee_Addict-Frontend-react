@@ -21,7 +21,7 @@ import {patchProduct} from "../../utility/axios"
 // import css
 import styles from "../../styles/adminCSS/Updateproduct.module.css";
 import { useEffect } from "react";
-import { Spinner } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 
 function UpdateProduct() {
     const navigate = useNavigate();
@@ -36,7 +36,15 @@ function UpdateProduct() {
     const [stock, setStock] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false)
+    const [saveloading, setSaveLoading] = useState(false)
+    const [showDelete, setShowDelete] = useState(false);
   
+
+    const handleCloseDelete = () => {
+      setShowDelete(false);
+    };
+
+
     const returnInitial = () => {
       setImage(null);
       setDisplay(null)
@@ -55,7 +63,7 @@ function UpdateProduct() {
   
     const saveHandle = async () => {
       try {
-        setLoading(true)
+        setSaveLoading(true)
         const getToken = await localStorage.getItem("token");
         // console.log(getToken)
         const formData = new FormData();
@@ -72,13 +80,13 @@ function UpdateProduct() {
           position: toast.POSITION.TOP_RIGHT,
         });
         navigate("/product");
-        setLoading(false)
+        setSaveLoading(false)
       } catch (error) {
         console.log(error);
         toast.error(`failed edit product`, {
           position: toast.POSITION.TOP_RIGHT,
         });
-        setLoading(false)
+        setSaveLoading(false)
       }
     };
 
@@ -105,6 +113,7 @@ function UpdateProduct() {
 
     
   useEffect(() => {
+    setLoading(true)
     axios.get(`${process.env.REACT_APP_BACKEND_HOST}/product/${id}`)
       .then((res) => {
         setImage(res.data.result.data[0].image);
@@ -115,8 +124,10 @@ function UpdateProduct() {
         setPrice(res.data.result.data[0].price);
         setStock(res.data.result.data[0].stock);
         setDescription(res.data.result.data[0].description);
+        setLoading(false)
       })
       .catch((err) => {
+        setLoading(false)
         console.log(err)
       })
   },[])
@@ -127,7 +138,9 @@ function UpdateProduct() {
     <>
       <ToastContainer />
       <NavbarAdmin />
-      <div className="container-fluid border-top mb-5">
+      {loading ? <div className="d-flex justify-content-center align-items-center pt-3 h-100">
+                           <Spinner animation="border" />
+                        </div> : <div className="container-fluid border-top mb-5">
         {/* breadcrumb */}
         <div className="container">
           <div className="row py-3">
@@ -144,7 +157,9 @@ function UpdateProduct() {
                     Add new product
                   </li>
                 </ol>
-                <button className={styles['trash_button']} onClick={deleteProduct}>
+                <button className={styles['trash_button']} onClick={() => {
+                    setShowDelete(true);
+                  }}>
                   <i className="bi bi-trash text-white fs-5" />
                 </button>
               </div>
@@ -308,7 +323,7 @@ function UpdateProduct() {
                 className={`${styles["save-product"]} mt-5 rounded-5`}
                 onClick={saveHandle}
               >
-                {loading ? <div className="d-flex justify-content-center align-items-center pt-3">
+                {saveloading ? <div className="d-flex justify-content-center align-items-center pt-3">
                            <Spinner animation="border" />
                         </div> : 'Save Change'}
               </button>
@@ -322,8 +337,36 @@ function UpdateProduct() {
           </div>
         </div>
         {/* Left Content */}
-      </div>
+      </div>}
       <Footer />
+
+      <Modal
+        show={showDelete}
+        onHide={handleCloseDelete}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>select product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>are you sure to delete product?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            className="fw-bold text-bg-danger text-white"
+            onClick={handleCloseDelete}
+          >
+            cancel
+          </Button>
+          <Button
+            variant="success"
+            className="fw-bold text-bg-success text-white"
+            onClick={deleteProduct}
+          >
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

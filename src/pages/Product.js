@@ -391,7 +391,7 @@ const Product = () => {
                               <option value="">Sorting</option>
                               <option value="cheapest">cheapest</option>
                               <option value="expensive">expensive</option>
-                              <option value="newest">lates</option>
+                              <option value="newest">latter</option>
                               <option value="lates">newest</option>
                            </select>
                         )}
