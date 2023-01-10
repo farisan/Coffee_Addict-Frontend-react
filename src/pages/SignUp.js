@@ -56,7 +56,6 @@ const SignUp = () => {
          .then((response) => {
             // console.log(response.data.result);
             toast.success(response.data.result.msg, {
-               // menampilkan notifikasi error
                position: toast.POSITION.TOP_RIGHT,
             });
             navigate("/login")

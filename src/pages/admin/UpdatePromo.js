@@ -99,7 +99,7 @@ function UpdatePromo() {
       toast.success("success add promo", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      // navigate("/");
+      navigate("/product");
     } catch (error) {
       console.log(error.response);
       toast.error("error add product", {
@@ -314,7 +314,7 @@ function UpdatePromo() {
                   {showColor ? "confirm color" : "select color"}
                 </button>
                 {showColor && (
-                  <button
+                  <button className={styles.bg_setColor1}
                     onClick={() => {
                       setShowColor((showColor) => !showColor);
                       setColor(prevColor);

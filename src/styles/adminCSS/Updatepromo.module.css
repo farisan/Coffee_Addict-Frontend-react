@@ -10,6 +10,13 @@
     text-decoration: none;
 }
 
+.choose_product {
+    border: none;
+    border-radius: 20px;
+    background-color: #FFBA33;
+    height: 40px;
+}
+
 .step-two {
     font-family: 'Rubik';
     font-style: normal;
@@ -39,6 +46,16 @@ input[type="file"] {
     line-height: 30px;
     color: #6A4029;
 }
+
+.bg_setColor {
+    border: none;
+    background-color: #FFBA33;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    color: black;
+}
+
 
 .change-profile {
     width: 80%;
