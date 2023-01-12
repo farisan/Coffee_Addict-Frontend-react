@@ -79,6 +79,22 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+<table border="2">
+    <div align="center">
+        <img width="300" height="300" src="./src/asset/readme/coffee_home.png">
+        <img width="300" height="300" src="./src/asset/readme/coffee_login.png">
+        <img width="300" height="300" src="./src/asset/readme/coffee_product.png">
+        <img width="300" height="300" src="./src/asset/readme/coffee_productdetail.png">
+        <img width="300" height="300" src="./src/asset/readme/coffee_history.png">
+    </div>
+</table>
+
 ## Deployment
 
 [URL Website](https://coffeeaddictfe.vercel.app/)
+
+## Related Project
+
+- Spectrum Furniture (React JS) [`here`](https://spectrum-online.vercel.app/)
+- Coffee Addict Mobile (React Native) [`here`](https://coffeeaddictfe.vercel.app/)
+- Backend Coffee Addict [`here`](https://github.com/farisan/Coffee_Addict-New-)
