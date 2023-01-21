@@ -81,11 +81,11 @@ You may also see any lint errors in the console.
 
 <table border="2">
     <div align="center">
-        <img width="300" height="300" src="./src/asset/readme/coffee_home.png">
-        <img width="300" height="300" src="./src/asset/readme/coffee_login.png">
-        <img width="300" height="300" src="./src/asset/readme/coffee_product.png">
-        <img width="300" height="300" src="./src/asset/readme/coffee_productdetail.png">
-        <img width="300" height="300" src="./src/asset/readme/coffee_history.png">
+        <img width="300" height="250" src="./src/asset/readme/coffee_home.png">
+        <img width="300" height="250" src="./src/asset/readme/coffee_login.png">
+        <img width="300" height="250" src="./src/asset/readme/coffee_product.png">
+        <img width="300" height="250" src="./src/asset/readme/coffee_productdetail.png">
+        <img width="300" height="250" src="./src/asset/readme/coffee_history.png">
     </div>
 </table>
 
