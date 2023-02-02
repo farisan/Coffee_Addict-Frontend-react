@@ -57,15 +57,9 @@ Install dependency packages by run the following code inside project folder:
 npm install
 ```
 
-### 3. Configure .env file
 
-Configure .env file by create file named .env inside project folder and add this line to the file:
 
-```
-NEXT_PUBLIC_BACKEND_URL = https://coffeeadictbe.vercel.app/coffee
-```
-
-### 4. Run projects
+### 3. Run projects
 
 Run this projects by run the following code:
 
